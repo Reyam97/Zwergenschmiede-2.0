@@ -1,0 +1,968 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zwergenschmiede 11.0 · Gruppen-PWA</title><style>
+:root{color-scheme:dark;--bg:#101719;--panel:#1b2527;--panel2:#233033;--line:#354649;--ink:#eef2eb;--muted:#a9bab6;--gold:#e7bf78;--green:#86ceac;--red:#ee9386;--blue:#99c3dd}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#253537 0,#101719 550px);color:var(--ink);line-height:1.45}main{max-width:1120px;margin:0 auto;padding:22px 18px 70px}h1{font-family:Georgia,serif;font-size:clamp(1.7rem,5vw,2.6rem);margin:0;color:#f3ddab}h2{font-size:1.23rem;margin:0 0 13px}h3{font-size:1rem;margin:0 0 8px}p{margin:8px 0}.subtitle{color:var(--muted);font-size:.97rem;margin:5px 0 23px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tab,button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--ink);padding:10px 14px;border-radius:10px;font:inherit;font-weight:600}.tab.on{background:var(--gold);color:#191d1a;border-color:var(--gold)}button.primary{background:var(--gold);color:#211e19;border-color:var(--gold)}button:hover,.tab:hover{filter:brightness(1.13)}button:disabled{opacity:.45;cursor:default}.small{font-size:.83rem;color:var(--muted)}.panel{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:18px;margin:0 0 16px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.control{margin:0 0 17px}.control:last-child{margin-bottom:0}.control label{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;font-weight:600;margin-bottom:7px;gap:8px}input:not([type=checkbox]),select{width:100%;border-radius:9px;padding:10px;background:#111b1e;border:1px solid #526060;color:var(--ink);font:inherit;min-width:0}input[type=range]{accent-color:var(--gold);padding:0;border:0;background:transparent}input[type=checkbox]{accent-color:var(--gold);width:18px;height:18px;vertical-align:middle}.checks{display:flex;gap:8px;align-items:center;margin:10px 0;color:var(--ink)}.kpi{border-radius:11px;background:var(--panel2);padding:12px}.kpi span{color:var(--muted);font-size:.75rem;display:block}.kpi strong{font-size:1.55rem;letter-spacing:-.4px}.bar{height:10px;border-radius:10px;background:#10191b;overflow:hidden;margin:8px 0}.bar>i{display:block;height:100%;background:var(--green);border-radius:10px}.bar.bad>i{background:var(--red)}.ok{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--gold)}.muted{color:var(--muted)}.reward-list{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.reward-tag{border:1px solid #75603d;background:#382f24;color:#f2d7a4}.tag{display:inline-block;border-radius:6px;background:#304145;padding:3px 8px;font-size:.82rem;color:#d3dfda}.topline,.buttons{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.buttons{justify-content:flex-start;margin-top:12px}.cardline{padding:9px 0;border-bottom:1px solid var(--line)}.cardline:last-child{border-bottom:0}.cardline strong{float:right}table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{text-align:right;border-bottom:1px solid var(--line);padding:9px 7px}th:first-child,td:first-child{text-align:left}th{font-weight:600;color:var(--muted);font-size:.81rem}tr:last-child td{border:0}.comparehead{color:var(--gold)}.bars{margin:12px 0}.bars .row{display:grid;grid-template-columns:128px 1fr 68px;gap:10px;align-items:center;margin:9px 0;font-size:.85rem}.bars .track{height:10px;background:#0e1618;border-radius:8px;overflow:hidden}.bars .fill{height:100%;border-radius:8px;background:var(--gold)}.bars .fill.alt{background:var(--blue)}.status{border-left:3px solid var(--gold);padding:9px 12px;background:var(--panel2);border-radius:0 8px 8px 0}.status.good{border-color:var(--green)}.status.bad{border-color:var(--red)}.note{color:var(--muted);font-size:.83rem}.divider{height:1px;background:var(--line);margin:15px 0}.fileinput{display:none}.headright{display:flex;flex-wrap:wrap;gap:7px}.footer{font-size:.83rem;color:var(--muted);margin-top:18px}.err{color:var(--red)}@media(max-width:740px){.columns,.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr 1fr}main{padding:16px 11px 60px}.panel{padding:14px}.bars .row{grid-template-columns:104px 1fr 58px;font-size:.78rem}table{font-size:.8rem}th,td{padding:8px 3px}}
+
+:root{--mint:#81d3aa;--red:#f19b8e;--gold:#e5bd77;--line:#375258}
+body{background:linear-gradient(145deg,#182c2f,#0d1619 600px);}
+main{max-width:1120px;padding:20px 16px 76px}
+header{margin-bottom:8px}
+.head-actions{display:flex;gap:8px;flex-wrap:wrap}
+.tab{flex:1;white-space:nowrap;min-width:115px}
+.tabs{position:relative;display:flex;flex-wrap:nowrap;gap:7px}
+.panel{background:#192629;border:1px solid #365258;border-radius:15px;padding:18px;margin-bottom:14px}
+.panel.first{border-color:#8e754c}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.sectionhead h2{margin-bottom:0}
+.hint{font-size:.88rem;color:#b1c4c2;margin:6px 0 13px}
+.fine{font-size:.78rem;color:#a6b8b5;margin:13px 0 5px}
+.goodtext{color:var(--mint)}.badtext{color:var(--red)}.warntext{color:#eec785}
+.twocol{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}.subpanel{border:1px solid #3b5356;background:#202e31;border-radius:12px;padding:14px;margin:12px 0}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0;margin:0 0 15px;font-size:.9rem;font-weight:600}
+.field span{color:#dce4df}.field select,.field input{margin:0}
+.sliderfield{margin-bottom:18px}.sliderfield>label{display:flex;justify-content:space-between;align-items:center;font-weight:650;margin:0 0 8px}.sliderfield input{width:100%;height:31px}.sliderfield small{color:var(--muted)}
+.checkfield{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:.88rem;cursor:pointer}.checkfield span{flex:1}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}.metric{background:#27373b;border-radius:12px;padding:11px;min-width:0}.metric small{display:block;color:#b1c3c0;font-size:.72rem}.metric b{display:block;font-size:clamp(1.22rem,2.4vw,1.7rem);margin-top:4px}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin:9px 0 16px}.pill{font-size:.78rem;border:1px solid #9b7b42;color:#f3deb6;background:#382e23;padding:4px 8px;border-radius:20px}
+.meterhead{display:flex;justify-content:space-between;align-items:center;font-size:.87rem}.meter{height:10px;background:#0e181a;border-radius:9px;margin:10px 0;overflow:hidden}.meter span{display:block;height:100%;border-radius:9px}
+.buttonrow{display:flex;align-items:end;gap:8px;flex-wrap:wrap;margin-top:14px}.buttonrow .field{flex:1;min-width:160px;margin:0}.buttonrow button{flex-grow:0}
+.textbutton{background:transparent;border:0;color:#efce91;padding:8px 0;text-decoration:underline}.advanced{margin-top:16px;border-top:1px solid #395056}
+.recoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.recocard{background:#243339;border:1px solid #466066;padding:14px;border-radius:12px}.recocard h3{color:#eed19c}.recocard.featured{border-color:#b5965a}.recocard p{margin:6px 0 10px}.recocard button{width:100%;font-size:.85rem}
+.libraryItem{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #334a4e;padding:12px 0}.libraryItem:last-child{border:none}.libraryItem p{margin:3px 0}.libraryActions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.libraryActions button{padding:9px 11px}.delete-action{border-color:#9e645e;color:#ffd3ce;background:#392729}.delete-action:hover{background:#58322f}
+.chart{display:block;width:100%;height:auto;background:#172226;border:1px solid #30474c;border-radius:10px;max-height:290px}.chartlabel{font-size:11px;fill:#b4c5c5}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.84rem;margin:8px 0}.legend>span{display:flex;align-items:center;gap:6px}.swatch{display:inline-block;width:14px;height:5px;border-radius:3px}.swatch.a{background:#e8c27c}.swatch.b{background:#83b8df}
+.big{font-size:2rem;font-weight:750;margin:5px 0}.comparisonbar{margin:12px 0}.barcaption{display:flex;justify-content:space-between;gap:8px;font-size:.87rem;margin-bottom:6px}.twobar{display:flex;flex-direction:column;gap:4px;background:#142022;padding:6px;border-radius:8px}.barA,.barB{display:block;height:9px;border-radius:8px}.barA{background:#e8c27c}.barB{background:#83b8df}
+.balance{display:flex;align-items:center;gap:18px}.balance>div{display:flex;flex-direction:column;align-items:center;background:#27363a;border-radius:11px;padding:12px;min-width:128px}.balance strong{font-size:2rem}.balance small{font-size:.7rem;color:var(--muted)}.balance p{flex:1}
+#sticky{position:sticky;top:0;z-index:5;background:#1c2b30;border:1px solid #59665f;box-shadow:0 5px 18px #0d1719bb;border-radius:11px;padding:8px 12px;margin:0 0 14px;display:flex;align-items:center;gap:14px;justify-content:space-between;font-size:.86rem;min-height:43px}#sticky[hidden]{display:none}#sticky b{font-size:1.08rem}#sticky small{font-size:.62rem;color:#b5c9c5}#sticky .stickname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44%;font-weight:650;color:#ebcf9b}
+#notice{border-radius:9px;border:1px solid #7d7156;background:#302e25;color:#ead69f;padding:9px 12px;margin-bottom:10px}#notice[hidden]{display:none}
+footer{font-size:.8rem;color:#a9b9b6;margin-top:20px}
+@media(max-width:430px){.libraryItem{align-items:flex-start;gap:7px}.libraryActions{flex-direction:column}.libraryActions button{min-width:75px;padding:8px}}
+@media(max-width:740px){main{padding:12px 9px 65px}.twocol{grid-template-columns:1fr}.panel{padding:13px}.metrics{gap:6px}.metric{padding:9px 7px}.metric b{font-size:1.13rem}.metric small{font-size:.66rem}.recoGrid{grid-template-columns:1fr 1fr}.recocard{padding:9px}.recocard h3{font-size:.86rem}.recocard p,.recocard button{font-size:.77rem}.formgrid{grid-template-columns:1fr 1fr;gap:8px}.tabs{gap:4px;margin-bottom:10px}.tab{min-width:0;flex:1;padding:10px 5px;font-size:.81rem}h1{font-size:1.65rem}.subtitle{font-size:.82rem;margin-bottom:9px}.head-actions button{font-size:.78rem;padding:8px}#sticky{gap:8px;padding:7px;margin-bottom:12px;font-size:.72rem}#sticky .stickname{max-width:36%}#sticky b{font-size:.95rem}.balance{flex-direction:column;align-items:stretch}.balance>div{flex-direction:row;gap:9px;justify-content:center}.buttonrow{align-items:stretch}.buttonrow button{font-size:.83rem;padding:9px}.field{font-size:.83rem}}
+@media(max-width:365px){.recoGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.formgrid{grid-template-columns:1fr}}
+
+/* Version 10.3 – kompakte, für Smartphones lesbare Verteidigungsübersicht */
+#heroStatus{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;
+ background:#172426;border:1px solid #314b4b;border-radius:10px;margin:0 0 10px;font-size:.82rem;color:#bfd2cc}
+#heroStatus[hidden]{display:none}#heroStatus strong{color:#f3e1ba}
+.defense-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:9px 0 12px}
+.defense-stat{padding:10px;background:#243538;border-radius:10px;min-width:0}
+.defense-stat span{font-size:.72rem;color:#b3c7c2;display:block}
+.defense-stat strong{font-size:1.33rem;display:block}
+.build-check{border-left:3px solid #75cda1;padding:7px 10px;background:#243438;border-radius:7px}
+.defense-card{background:#203034;border:1px solid #415b5c;border-radius:12px;padding:13px;margin:14px 0}
+.defense-card select{margin-top:6px}.defense-help{font-size:.78rem;color:#b3c7c2;margin-top:6px}
+@media(max-width:430px){#heroStatus{font-size:.72rem;padding:7px 9px}.defense-stat{padding:9px 7px}.defense-stat strong{font-size:1.17rem}}
+
+
+/* 10.8: leicht verständliche Waffenschmiede, ohne Änderung der Bauformeln. */
+#sticky{display:grid;grid-template-columns:minmax(110px,1.8fr) repeat(4,minmax(48px,1fr));gap:8px;align-items:center;top:0}
+#sticky[hidden]{display:none}
+#sticky .stickname{max-width:none;min-width:0}
+.stickstat{display:flex;flex-direction:column;gap:1px;text-align:center;line-height:1.15;min-width:0}
+.stickstat b{font-size:1.07rem;color:var(--ink)}
+.stickstat small{font-size:.62rem;color:#b6c8c3;letter-spacing:.02em}
+.stickstat.negative b{color:var(--red)}.stickstat.positive b{color:var(--mint)}
+.point-summary{background:#26372f;border:1px solid #52755d;padding:12px;border-radius:12px;margin:10px 0 14px}
+.point-summary.invalid{background:#372825;border-color:#92615a}
+.point-summary strong{font-size:1.23rem;display:block;color:#9fe0b8}
+.point-summary.invalid strong{color:#ffa89b}
+.point-summary small{color:var(--muted);display:block}
+.point-summary .meter{margin-bottom:0}
+.tradearea{border:1px dashed #536866;border-radius:10px;padding:10px;margin:11px 0}
+.tradearea .buttons{margin:7px 0 0;gap:6px}
+.tradearea button{padding:8px 10px;font-size:.82rem}
+.tradearea .hint{margin:3px 0}
+.trade-feedback{padding:8px 10px;border-left:3px solid var(--gold);background:#292f2b;border-radius:6px;font-size:.85rem;margin:10px 0}
+.fold-panel{padding:0;overflow:hidden}
+.fold-panel .fold-trigger{background:none;border:none;width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;padding:15px 17px;font-size:1.02rem;border-radius:0}
+.fold-panel .fold-trigger small{display:block;color:var(--muted);font-size:.78rem;font-weight:400;margin-top:2px}
+.fold-panel .fold-body{padding:0 17px 17px}
+.fold-panel .fold-body .panel{margin:0;padding:0;background:none;border:0}
+@media(max-width:740px){
+ #sticky{grid-template-columns:minmax(73px,1.4fr) repeat(4,minmax(37px,1fr));gap:3px;padding:8px 5px;border-radius:9px}
+ #sticky .stickname{font-size:.72rem;line-height:1.15;white-space:normal;max-height:2.5em}
+ .stickstat b{font-size:.96rem}.stickstat small{font-size:.53rem;letter-spacing:0}
+ .point-summary{padding:10px}
+ .fold-panel .fold-trigger{padding:13px 12px}.fold-panel .fold-body{padding:0 12px 12px}
+ .tradearea .buttons{flex-direction:column;align-items:stretch}.tradearea button{width:100%}
+}
+
+/* Waffenschmiede 10.9 – Zwergenschmiede. Nur Gestaltung, keine Regeländerungen. */
+:root{
+ color-scheme:dark;
+ --bg:#0b0c0d; --panel:#1b1a18; --panel2:#2a251e; --line:#685238;
+ --ink:#f7edda; --muted:#c5b59c; --gold:#e7b968;
+ --green:#a8d18e; --red:#f09888; --blue:#aab9d0;
+ --mint:#a8d18e;
+}
+html{scrollbar-color:#785935 #131210}
+body{
+ color:var(--ink);
+ background:
+  radial-gradient(ellipse 55% 370px at 88% 0%,rgba(185,75,20,.18),transparent 90%),
+  radial-gradient(ellipse 56% 500px at 7% 3%,rgba(125,75,28,.11),transparent 85%),
+  repeating-linear-gradient(100deg,transparent 0 62px,rgba(255,220,164,.012) 63px,transparent 66px),
+  linear-gradient(180deg,#151413 0%,#0b0c0d 46%,#11100f 100%);
+ font-family:system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.35;
+ background-image:repeating-linear-gradient(0deg,transparent 0 35px,rgba(213,152,84,.022) 36px,transparent 38px)}
+main{max-width:1120px;padding:20px 18px 65px}
+/* Geschmiedeter Titelbereich */
+header{
+ position:relative;overflow:hidden;isolation:isolate;margin-bottom:16px;
+ border:1px solid #a07b48;border-radius:17px;padding:18px 20px 16px;
+ background:
+  radial-gradient(ellipse at 89% 43%,rgba(255,123,29,.24),transparent 33%),
+  radial-gradient(ellipse at 91% 84%,rgba(255,78,11,.19),transparent 36%),
+  repeating-linear-gradient(125deg,transparent 0 45px,rgba(255,255,255,.012) 46px,transparent 49px),
+  linear-gradient(137deg,#292622 1%,#111311 52%,#1e1710 100%);
+ box-shadow:inset 0 0 0 4px #0f1010,inset 0 0 0 5px #564329,0 10px 26px #0008,0 0 32px #df6d1520;
+}
+header:before,header:after{content:"◆";position:absolute;top:0;color:#b78d4f;font:17px Georgia,serif;opacity:.9;pointer-events:none}
+header:before{left:10px}header:after{right:10px}
+header .topline{position:relative;z-index:1;align-items:center;gap:12px}
+.forge-brand{display:flex;align-items:center;gap:13px;min-width:0}
+.forge-signet{width:55px;height:55px;flex:0 0 55px;display:grid;place-items:center;
+ background:radial-gradient(circle,#4c3320 8%,#1b1b18 70%);border:2px solid #bd8d46;
+ outline:2px solid #1a140f;box-shadow:0 0 0 4px #42321f,0 0 20px #cc661d45;
+ transform:rotate(45deg);border-radius:9px}
+.forge-signet span{transform:rotate(-45deg);font-size:27px;line-height:1;color:#f3bc68;text-shadow:0 2px 8px #ff671fa8}
+.forge-brandcopy{min-width:0}
+header h1{font-family:Georgia,'Times New Roman',serif;letter-spacing:.02em;
+ font-size:clamp(1.46rem,3.1vw,2.08rem);font-weight:750;line-height:1.16;margin:0;
+ color:#f6d398;text-shadow:0 2px 1px #271508,0 0 17px #d7843352}
+.eyebrow{font-size:.65rem;font-weight:800;letter-spacing:.22em;color:#bda27b;margin:0 0 4px;text-transform:uppercase}
+.subtitle{color:#d0b89a;font-size:.82rem;margin:5px 0 0}
+.forge-art{position:absolute;right:-4px;top:-20px;width:165px;height:145px;z-index:0;opacity:.65;filter:drop-shadow(0 0 12px #ed732452);pointer-events:none}
+.head-actions{position:relative;z-index:2;gap:7px;justify-content:flex-end}
+.head-actions button{padding:9px 11px;background:linear-gradient(#302820,#191a18);border-color:#81603a;color:#f6dfb5;font-size:.8rem}
+/* Messing-Navigation */
+.tabs{gap:9px;margin:0 0 14px}
+.tab{border-radius:11px;padding:12px 15px;white-space:nowrap;min-width:0;
+ color:#e1d0b6;background:linear-gradient(180deg,#2e2923,#17191a);
+ border:1px solid #5c4930;box-shadow:inset 0 1px #ffffff12,0 3px 8px #0004}
+.tab.on{background:linear-gradient(170deg,#f0c57a,#bf8e45);color:#26190e;border-color:#f2d193;
+ box-shadow:inset 0 1px #fff7,0 0 0 1px #8a6137,0 2px 16px #d57b2c4a}
+.tab:hover{border-color:#c6a06b}
+.tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #f9c677;outline-offset:3px}
+/* Steinplatten und Messingkanten */
+.panel{
+ color:var(--ink);border:1px solid #644c32;border-top-color:#a17a44;
+ border-radius:13px;padding:18px;
+ background:
+  radial-gradient(ellipse at 96% 0%,rgba(133,83,38,.11),transparent 60%),
+  linear-gradient(152deg,#24221f 0%,#1b1b1a 64%,#191817 100%);
+ box-shadow:inset 0 1px #efd7a214,inset 0 0 0 3px #00000024,0 7px 15px #0005;
+}
+.panel.first{border-color:#a67d41;border-top:2px solid #d4a35a;box-shadow:inset 0 1px #f1dba026,0 7px 22px #0007}
+h2,h3{font-family:Georgia,'Times New Roman',serif;letter-spacing:.012em;color:#f3d4a1}
+h2{font-size:1.27rem}h3{font-size:1.03rem}
+.sectionhead{border-bottom:1px solid #77604770;padding:0 0 12px;margin-bottom:14px}
+.sectionhead h2{margin:0}
+.hint,.fine,.note,.small{color:var(--muted)}
+.subpanel,.recocard,.defense-card{
+ border:1px solid #665036;border-radius:10px;
+ background:linear-gradient(150deg,#302a22,#221e1b);
+ box-shadow:inset 0 1px #ffffff0a;
+}
+.recocard.featured{border-color:#d3a35d;box-shadow:inset 0 0 0 1px #b58a444f}
+.recocard h3,.comparehead{color:#f4ca81}
+.defense-help,.defense-stat span,.metric small{color:#d4bfa1}
+.defense-stat,.metric,.kpi,.balance>div{border:1px solid #685136;background:linear-gradient(145deg,#342c22,#211f1b);box-shadow:inset 0 1px #fff1}
+.metric b,.kpi strong,.defense-stat strong,.big,.balance strong{color:#f7d6a0;font-variant-numeric:tabular-nums}
+.metrics{gap:10px}
+/* Schmiedeeiserne Felder und mechanische Regler */
+input:not([type=checkbox]):not([type=range]),select,textarea{
+ color:#fff1d8!important;background:linear-gradient(180deg,#101212,#1b1a18)!important;
+ border:1px solid #89714c!important;border-radius:8px!important;
+ box-shadow:inset 0 2px 5px #0006,0 1px #ffffff0b;
+ min-height:41px;
+}
+input::placeholder{color:#bbaa8d}
+input[type=range]{height:30px;accent-color:#daa353;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:7px;background:linear-gradient(#6a5540,#483a2b);border:1px solid #8f704a;border-radius:99px;box-shadow:inset 0 2px 2px #0008}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:24px;margin-top:-10px;background:linear-gradient(90deg,#75481c,#f7c877 45%,#a56c2e);border:2px solid #e4bb75;border-radius:6px;box-shadow:0 2px 5px #0009,0 0 0 2px #211910}
+input[type=range]{-webkit-appearance:none;appearance:none;background:none}
+input[type=checkbox]{accent-color:#dca756;width:19px;height:19px}
+.field span,.sliderfield>label,.control label{color:#f0e0c7}
+.sliderfield small{color:#c4af90}
+/* Knöpfe im geschmiedeten Stil */
+button{border:1px solid #80633f;color:#f0e0c7;background:linear-gradient(180deg,#3c3124,#24201c);
+ border-radius:9px;box-shadow:inset 0 1px #f6d4981a,0 2px 5px #0005;
+ transition:background .14s,border-color .14s,transform .14s}
+button.primary{background:linear-gradient(160deg,#f3c875,#b98037);border-color:#f7d28c;color:#271c0f;box-shadow:inset 0 1px #ffffff65,0 3px 11px #a85e1859}
+button:active{transform:translateY(1px)}button:disabled{opacity:.48}
+.textbutton{color:#f3ca82}
+.delete-action{color:#ffb6a5;border-color:#995547;background:linear-gradient(#48302a,#2b1a19)}
+.delete-action:hover{background:#603930}
+/* Anzeigen */
+.pill,.reward-tag{background:#403021;border:1px solid #a17a41;color:#f7dcae}
+.tag{background:#3c3226;color:#f6deb4;border:1px solid #6c5130}
+.meter,.bar,.bars .track{background:#100e0c;border:1px solid #58442b;overflow:hidden}
+.meter span,.bar>i{background:linear-gradient(90deg,#7ab986,#c6e0a8)}
+.point-summary{background:linear-gradient(150deg,#293326,#21261e);border:1px solid #667b4a;box-shadow:inset 0 1px #ffffff16}
+.point-summary strong{color:#c4e4a0}
+.point-summary.invalid{background:#3b2924;border-color:#b06354}
+.point-summary.invalid strong{color:#ffb5a1}
+.tradearea{background:#24211c;border-color:#8f764c}
+.trade-feedback{background:#332b20;border-left-color:#e1aa55}
+#sticky{background:linear-gradient(155deg,#2d251b,#181815);border:1px solid #c08c47;
+ box-shadow:0 6px 20px #000b,inset 0 1px #f6d29626;backdrop-filter:blur(6px)}
+#sticky .stickname{color:#f3c985}
+#sticky small,.stickstat small{color:#d0b997}
+.stickstat b{color:#f3dfb7}
+.stickstat.positive b{color:#b3d994}.stickstat.negative b{color:#f4a295}
+#heroStatus{background:#221f1a;border:1px solid #69543a;color:#d2c09f}
+#heroStatus strong{color:#f6d094}
+#notice{background:#3b3020;border-color:#a87b46;color:#ffe3ab}
+.balance>div{border-radius:10px}
+.chart{background:#1b1a18;border-color:#665036}
+.chartlabel{fill:#e0c39b}
+.barA,.swatch.a{background:#dda95a}.barB,.swatch.b{background:#9cbbcf}
+.twobar{background:#17130f}
+.fold-panel{border-color:#7e5d38}
+.fold-panel .fold-trigger{color:#f2d3a2;background:linear-gradient(#2d281f,#201e1b);border-radius:12px 12px 0 0}
+.fold-panel .fold-trigger:hover{background:linear-gradient(#403324,#28231c)}
+.fold-panel .fold-trigger small{color:#c6b196}
+.fold-panel .fold-body{background:#1d1b18}
+.libraryItem{border-bottom-color:#695034}
+.libraryItem strong{color:#f5dbac}
+.status{background:#29241d}.status.good{border-color:#8abe82}.status.bad{border-color:#d78172}
+.build-check{background:#263124;border-color:#96c385}
+footer{border-top:1px solid #654c30;padding-top:19px;color:#baa98e;line-height:1.65}
+/* Android: nur kleine Ränder, komfortable Touchflächen und stabile Kennzahlen */
+@media(max-width:740px){
+ main{padding:10px 10px 58px}
+ header{padding:17px 13px 12px;margin-bottom:12px}
+ .forge-signet{width:43px;height:43px;flex-basis:43px;border-radius:7px}
+ .forge-signet span{font-size:23px}
+ .forge-brand{gap:11px}
+ .forge-art{width:105px;height:105px;right:-9px;top:-14px;opacity:.34}
+ header h1{font-size:clamp(1.35rem,5.6vw,1.85rem)}
+ .eyebrow{font-size:.56rem;letter-spacing:.17em}
+ .subtitle{font-size:.74rem;margin:4px 0 0}
+ .head-actions{width:100%;margin-top:10px;justify-content:flex-start;gap:6px}
+ .head-actions button{flex:1;padding:9px 5px;font-size:.73rem;min-height:39px}
+ .tabs{gap:6px;margin-bottom:12px}
+ .tab{font-size:.8rem;padding:11px 5px}
+ .panel{padding:14px;margin-bottom:12px}
+ .metric{padding:9px 7px}.metric b{font-size:1.15rem}
+ #sticky{top:0;border-radius:9px;padding:7px 5px}
+ #sticky .stickname{font-size:.76rem}
+ .fold-panel .fold-trigger{min-height:50px;padding:14px 12px}
+ input:not([type=checkbox]):not([type=range]),select{min-height:42px}
+ .buttonrow button{min-height:41px}
+ .recoGrid{gap:8px}
+}
+@media(max-width:365px){header h1{font-size:1.29rem}.forge-signet{width:37px;height:37px;flex-basis:37px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+
+</style><link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#191815">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<style>
+/* Installierbare Gruppen-App: Startkontrolle blockiert ausschließlich beim Versionscheck. */
+html.pwa-gating main { visibility:hidden; }
+#pwa-start { position:fixed; inset:0; z-index:999999; display:flex; align-items:center; justify-content:center;
+ padding:20px; background:radial-gradient(circle at 50% 12%,#40301e 0%,#121514 65%); color:#f5dfb7;
+ font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+#pwa-start[hidden] {display:none !important}
+#pwa-start-box {width:min(100%,420px); border:1px solid #a77b42; background:#211e19;
+ box-shadow:0 15px 48px #0009; border-radius:16px; padding:24px; text-align:center; }
+#pwa-start-symbol{font-size:44px;color:#efbb6e;line-height:1.2}
+#pwa-start-title{margin:8px 0 12px;color:#f5deb2;font-family:Georgia,serif;font-size:1.55rem}
+#pwa-start-text{color:#dfcba9;line-height:1.5;font-size:.96rem;white-space:pre-line}
+#pwa-start-meta {margin:12px 0; font-size:.82rem;color:#c3a881}
+#pwa-start-retry{border:1px solid #e5bb70;background:#dca65a;color:#171411;font:600 1rem system-ui;
+ border-radius:9px;padding:12px 18px;margin:14px auto 0;min-height:44px;}
+#pwa-start-retry[hidden] {display:none}
+#pwa-start-note{font-size:.8rem;color:#c0ac91;margin-top:13px}
+.pwa-version{display:inline-block;margin-top:8px;color:#e6c68a;font-size:.82rem}
+</style>
+<script>document.documentElement.classList.add('pwa-gating');</script></head><body><section id="pwa-start" role="dialog" aria-modal="true" aria-labelledby="pwa-start-title" aria-live="polite">
+<div id="pwa-start-box"><div id="pwa-start-symbol">⚒</div>
+<h2 id="pwa-start-title">Die Zwergenschmiede</h2>
+<p id="pwa-start-text">Version wird geprüft …</p>
+<div id="pwa-start-meta">Gruppen-Edition · Version 11.0.0</div>
+<button id="pwa-start-retry" type="button" hidden>Erneut versuchen</button>
+<div id="pwa-start-note">Waffen und Helden bleiben auf deinem Gerät.</div></div></section><main><header><div class="topline"><div class="forge-brand"><div class="forge-signet" aria-hidden="true"><span>⚒</span></div><div class="forge-brandcopy"><div class="eyebrow">Aus den Hallen der Schmiede</div><h1>Die Zwergenschmiede</h1><p class="subtitle">Gruppen-Edition 11.0 · Waffenbau · Vergleich · Probekampf</p></div></div><svg class="forge-art" viewBox="0 0 170 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="forgeglow"><stop stop-color="#ffb541" stop-opacity=".7"/><stop offset="1" stop-color="#e25413" stop-opacity="0"/></radialGradient><linearGradient id="iron" x2="1" y2="1"><stop stop-color="#8a7060"/><stop offset=".5" stop-color="#51423c"/><stop offset="1" stop-color="#1b191b"/></linearGradient></defs><ellipse cx="111" cy="93" rx="63" ry="55" fill="url(#forgeglow)"/><g fill="#f3a241"><circle cx="91" cy="29" r="2"/><circle cx="123" cy="19" r="3"/><circle cx="146" cy="48" r="2"/><circle cx="74" cy="51" r="1.8"/><circle cx="151" cy="19" r="1.3"/><circle cx="133" cy="73" r="2"/></g><path d="M85 110c-28-33 3-57-4-77 30 26 15 35 27 44-4-26 17-34 11-48 30 36 16 52 26 81-12 15-44 23-60 0Z" fill="#c95019" opacity=".8"/><path d="M106 112C89 91 114 81 107 60c26 20 13 35 24 50-5 9-15 14-25 2Z" fill="#ffb24b" opacity=".7"/><path d="M57 103h89l-10 15h-19v10h17v8H72v-8h19v-10H75L57 103Z" fill="url(#iron)" stroke="#a47d4f" stroke-width="2"/><path d="M57 103L42 98l15-7h38l8-10h16l-7 10h36v12Z" fill="url(#iron)" stroke="#d0a46a" stroke-width="2"/></svg><div class="head-actions"><button data-action="newW">＋ Neue Waffe</button><button data-action="export">Export</button><button data-action="import">Import</button><input id="importFile" type="file" accept=".json,application/json" hidden></div></div></header><nav id="tabs" class="tabs"><button class="tab on" data-tab="build">⚒ Schmiede</button><button class="tab" data-tab="compare">⚖ Vergleich</button><button class="tab" data-tab="combat">⚔ Probekampf</button></nav><div id="sticky" hidden></div><div id="heroStatus" hidden></div><div id="notice" hidden role="status"></div><div id="app"></div><footer>Waffenbau und Fairness-Index sind Hausregeln, nicht offizielle Werte. Ungültige Testentwürfe werden beim Speichern ausdrücklich gekennzeichnet. Der intelligente Einsatz der W6-Sechsen verwendet eine situationsbezogene Heuristik. Die Probekämpfe sind vereinfachte Einzelduelle und berücksichtigen keine Hoffnung, Erschöpfung, Gelände, Formationen oder umfassende Sonderfähigkeiten. Schildboni gelten nur bei einhändiger Führung; die Vergleichs-Schildlast wird zur Waffenlast addiert. Baupunkte bleiben von separat erworbenen Waffenbelohnungen getrennt. Die App funktioniert nach ihrer ersten Online-Installation offline; deine Waffen werden nach Möglichkeit lokal gespeichert. Vorher gespeicherte Entwürfe können unter den neu kalibrierten Budgets ungültig werden, bleiben aber erhalten.</footer>
+<div class="pwa-version">Gruppen-Edition · Version 11.0.0 · Updates beim Start</div></main><script id="engine">
+
+'use strict';
+const WENGINE = (() => {
+  const CATEGORIES = [
+    {id:'tiny',name:'Kleinstwaffe',budget:7.56,dmin:1,dmax:4,vmin:10,vmax:16,bmin:0,bmax:2,base:[2,14],style:'compact'},
+    {id:'light',name:'Leichte Einhandwaffe',budget:9.32,dmin:2,dmax:5,vmin:10,vmax:18,bmin:0,bmax:3,base:[4,14],style:'compact'},
+    {id:'heavy',name:'Schwere Einhandwaffe',budget:12.14,dmin:3,dmax:6,vmin:12,vmax:22,bmin:1,bmax:4,base:[5,18],style:'compact'},
+    {id:'versatile',name:'Flexible Waffe (1H/2H)',budget:14.75,dmin:3,dmax:7,vmin:12,vmax:26,bmin:1,bmax:5,base:[6,20],style:'compact',versatile:true},
+    {id:'twohand',name:'Reine Zweihandwaffe',budget:15.75,dmin:4,dmax:8,vmin:12,vmax:26,bmin:2,bmax:6,base:[7,20],style:'compact',twohand:true},
+    {id:'bow',name:'Kurzbogen',budget:10.75,dmin:2,dmax:5,vmin:10,vmax:20,bmin:1,bmax:4,base:[3,14],style:'bow',bow:true},
+    {id:'longbow',name:'Langbogen',budget:11.75,dmin:3,dmax:6,vmin:12,vmax:22,bmin:2,bmax:6,base:[4,16],style:'longbow',bow:true}
+  ];
+  // Vorlagen direkt nach der vom Nutzer bereitgestellten Waffentabelle (Seite 48).
+  // Für flexible Waffen ist injury der Zweihandwert; die Einhandführung zieht 2 ab.
+  const SHIELDS = Object.freeze({none:{name:'Kein Schild',parry:0,load:0},buckler:{name:'Buckler',parry:1,load:2},shield:{name:'Schild',parry:2,load:4},great:{name:'Großer Schild',parry:3,load:6}});
+  const TEMPLATES = [
+    {id:'dagger',name:'Dolch',cat:'tiny',damage:2,injury:14,style:'compact',load:0},
+    {id:'club',name:'Knüppel',cat:'light',damage:3,injury:12,style:'compact',load:0},
+    {id:'mace',name:'Keule',cat:'light',damage:4,injury:14,style:'compact',load:1},
+    {id:'shortsword',name:'Kurzschwert',cat:'light',damage:3,injury:16,style:'blade',load:1},
+    {id:'sword',name:'Schwert',cat:'heavy',damage:4,injury:16,style:'blade',load:2},
+    {id:'longsword',name:'Langschwert',cat:'versatile',damage:5,injury:18,style:'blade',load:3},
+    {id:'shortspear',name:'Kurzspeer',cat:'heavy',damage:3,injury:14,style:'spear',load:2},
+    {id:'spear',name:'Speer',cat:'versatile',damage:4,injury:16,style:'spear',load:3},
+    {id:'longspear',name:'Langspeer',cat:'twohand',damage:5,injury:16,style:'spear',load:4},
+    {id:'axe',name:'Axt',cat:'heavy',damage:5,injury:18,style:'compact',load:2},
+    {id:'longaxe',name:'Langaxt',cat:'versatile',damage:6,injury:20,style:'compact',load:3},
+    {id:'greataxe',name:'Zweihandaxt',cat:'twohand',damage:7,injury:20,style:'compact',load:4},
+    {id:'mattock',name:'Zweihandhacke',cat:'twohand',damage:7,injury:18,style:'compact',load:3},
+    {id:'bow',name:'Bogen',cat:'bow',damage:3,injury:14,style:'bow',load:2},
+    {id:'longbow',name:'Langbogen',cat:'longbow',damage:4,injury:16,style:'longbow',load:4}
+  ];
+  function templateWeapon(id){const t=TEMPLATES.find(t=>t.id===id);if(!t)return null;return {...defaultWeapon(t.cat),name:t.name,damage:t.damage,injury:t.injury,style:t.style};}
+  const ENEMIES = {
+    light:{name:'Leichter Gegner',armor:1,endurance:12,might:1,proficiency:2,parry:0,attribute:3,damage:3,injury:14,attacks:1,shadow:true,pierce:false},
+    medium:{name:'Mittlerer Gegner',armor:3,endurance:20,might:2,proficiency:2,parry:1,attribute:4,damage:4,injury:16,attacks:2,shadow:true,pierce:false},
+    heavy:{name:'Schwerer Gegner',armor:5,endurance:32,might:2,proficiency:3,parry:2,attribute:6,damage:5,injury:18,attacks:2,shadow:true,pierce:false}
+  };
+  const $cat=id=>CATEGORIES.find(c=>c.id===id)||CATEGORIES[5];
+  const defaultWeapon=(cat='')=>{if(!cat)return {name:'',cat:'',damage:0,injury:0,style:'compact',light:false,versatile2h:true,rewards:{keen:false,fell:false,grievous:false}};const c=$cat(cat);return {name:'',cat,damage:c.base[0],injury:c.base[1],style:c.style,light:false,versatile2h:true,rewards:{keen:false,fell:false,grievous:false}}};
+  const defaultHero=()=>({culture:'other',parry:16,shield:'none',strength:4,endurance:22,armor:2,featDice:1,proficiency:2,strengthTN:16,keen:false,approach:'pierce',roundLimit:8});
+  const defaultEnemy=()=>({...ENEMIES.medium});
+  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+  function weaponRewards(w){return {keen:!!w.rewards?.keen,fell:!!w.rewards?.fell,grievous:!!w.rewards?.grievous};}
+  function effectiveDamage(w){return w.damage+(weaponRewards(w).grievous?1:0);}
+  // Empirischer Hausregel-Aufpreis: Je höher die Verletzung, desto teurer wird
+  // der nächste +2-Schritt. Basiswerte und Buchvorlagen bleiben zulässig.
+  function injurySurcharge(injury){
+    return 0.30*Math.max(0,(injury-16)/2)
+         + 0.55*Math.max(0,(injury-18)/2)
+         + 0.90*Math.max(0,(injury-20)/2);
+  }
+  function buildingPrice(damage,injury,light=false){
+    return damage+0.38*injury+injurySurcharge(injury)+(light?1.25:0);
+  }
+  function weaponInfo(w){
+    const c=$cat(w.cat);
+    const mainInj=w.injury;
+    const weightInj=c.versatile?mainInj-2:mainInj;
+    const form=({compact:0,blade:(w.damage>=5?0.5:0),spear:1.5,bow:1,longbow:2}[c.bow?c.style:w.style]??0);
+    const raw=0.5*w.damage+0.2*(weightInj-14)-0.85+form;
+    const baseLoad=Math.max(0,Math.floor(raw+0.500000001));
+    const light=!!w.light && baseLoad>0;
+    const load=baseLoad-(light?1:0);
+    const price=buildingPrice(w.damage,mainInj,light);
+    const within=w.damage>=c.dmin&&w.damage<=c.dmax&&mainInj>=c.vmin&&mainInj<=c.vmax&&mainInj%2===0;
+    const styleAllowed=c.bow || (['tiny','light'].includes(c.id)?['compact','blade'].includes(w.style):['compact','blade','spear'].includes(w.style));
+    const allowed=within&&styleAllowed&&price<=c.budget+1e-8&&load>=c.bmin&&load<=c.bmax;
+    return {category:c,form,baseLoad,load,price,remaining:c.budget-price,allowed,finalDamage:effectiveDamage(w),finalInjury:effectiveInjury(w),rewards:weaponRewards(w),reason:!within?'Werte außerhalb des Kategorienbereichs':!styleAllowed?'Bauform in dieser Waffenkategorie nicht vorgesehen':price>c.budget+1e-8?'Zu viele Baupunkte':load<c.bmin||load>c.bmax?'Belastung außerhalb der Kategorie':'Zulässig'};
+  }
+  function shieldCompatible(w){
+    const c=$cat(w.cat);
+    return !!w.cat && !c.bow && !c.twohand && !(c.versatile && w.versatile2h);
+  }
+  function shieldDetails(w,hero){
+    const requested=SHIELDS[hero.shield] || SHIELDS.none;
+    const equipped=shieldCompatible(w) && requested.parry>0 && !(hero.culture==='hobbit' && hero.shield==='great');
+    const shield=equipped?requested:SHIELDS.none;
+    return {equipped,compatible:shieldCompatible(w),requested:requested.name,
+      name:shield.name,parry:shield.parry,load:shield.load,
+      totalParry:Number(hero.parry||0)+shield.parry,
+      weaponAndShieldLoad:weaponInfo(w).load+shield.load};
+  }
+  function attackTarget(hero,enemy){return hero.strengthTN+enemy.parry;}
+  const faceValue=(face,shadow=false)=>{
+    if(!shadow)return face===11?{value:0,auto:true,magic:true}:face===10?{value:0,auto:false,magic:false}:{value:face+1,auto:false,magic:false};
+    return face===10?{value:0,auto:true,magic:true}:face===11?{value:0,auto:false,magic:false}:{value:face+1,auto:false,magic:false};
+  };
+  // Face indexing: 0..9 numeric 1..10, 10 Eye, 11 Gandalf.
+  function heroFeat(face){return face===11?{v:0,auto:true,unmod:true,rank:11}:face===10?{v:0,auto:false,unmod:true,rank:0}:{v:face+1,auto:false,unmod:false,rank:face+1};}
+  function foeFeat(face,shadow){return !shadow?heroFeat(face):face===10?{v:0,auto:true,unmod:true,rank:11}:face===11?{v:0,auto:false,unmod:true,rank:0}:{v:face+1,auto:false,unmod:false,rank:face+1};}
+  const rollD6=(rng)=>Math.floor(rng()*6)+1;
+  const rollFeat=(rng,advantage,shadow=false)=>{
+    const a=foeFeat(Math.floor(rng()*12),shadow);
+    if(!advantage)return a;
+    const b=foeFeat(Math.floor(rng()*12),shadow);
+    return a.rank>=b.rank?a:b;
+  };
+  function getPierceBonus(w){const c=$cat(w.cat);if(c.bow)return 2;return w.style==='spear'?3:w.style==='blade'?1:0;}
+  function effectiveInjury(w){const c=$cat(w.cat);return (c.versatile&&!w.versatile2h?w.injury-2:w.injury)+(weaponRewards(w).fell?2:0);}
+  function getHeavyBonus(w,strength){const c=$cat(w.cat);return strength+(c.bow||c.twohand||(c.versatile&&w.versatile2h)?1:0);}
+  const failCache=new Map();
+  function chooseSixes(f,sixes,w,approach,strength,enemy,context={},opts={}){
+    const natural=f.auto||(!f.unmod&&f.v>=(weaponRewards(w).keen||opts.keen?9:10));
+    const threshold=(weaponRewards(w).keen||opts.keen)?9:10;
+    const bonus=opts.adversary?2:getPierceBonus(w);
+    const needed=natural?0:(!f.unmod&&bonus>0?Math.max(1,Math.ceil((threshold-f.v)/bonus)):Infinity);
+    const canSpend=opts.canPierce!==false && needed<=sixes && Number.isFinite(needed);
+    const heavy=opts.heavyBonus??getHeavyBonus(w,strength);
+    const base=effectiveDamage(w);
+    const heavyChoice={pierce:natural,spent:0,damage:base+sixes*heavy};
+    if(natural || !canSpend || approach==='heavy')return heavyChoice;
+    const pierceChoice={pierce:true,spent:needed,damage:base+(sixes-needed)*heavy};
+    if(approach==='pierce')return pierceChoice;
+    if(approach!=='smart')return heavyChoice;
+    // Heuristik pro Würfelwurf und aktuellem Gegnerzustand: mögliche Sofortsiege
+    // haben Vorrang, danach erwarteter Fortschritt durch Schaden bzw. Wunden.
+    const hp=Math.max(1,context.foeHp??enemy.endurance??20);
+    const maxHp=Math.max(1,enemy.endurance??hp);
+    const wounds=Math.max(0,context.foeW??0);
+    const might=Math.max(1,enemy.might??2);
+    const fail=protectionFailure(opts.injury??effectiveInjury(w),enemy.armor,!!enemy.shadow);
+    function score(c){
+      const killHP=c.damage>=hp;
+      const killByWound=c.pierce&&wounds+1>=might;
+      const immediate=killHP?1:(killByWound?fail:0);
+      return 12*immediate+Math.min(hp,c.damage)/maxHp+ (c.pierce?1.3*fail/Math.max(1,might-wounds):0);
+    }
+    return score(pierceChoice)>score(heavyChoice)+1e-10?pierceChoice:heavyChoice;
+  }
+  function rollAttack(rng,att,opponent,context={}){
+    const {weapon:w,skill,featDice,tn,keen,approach,strength,shadow,heavyBonus,injury,canPierce=true,adversary=false}=att;
+    const f=rollFeat(rng,featDice===2,!!shadow);
+    let sum=0,sixes=0;
+    for(let i=0;i<skill;i++){const d=rollD6(rng);sum+=d;if(d===6)sixes++;}
+    const hit=f.auto||f.v+sum>=tn;
+    if(!hit)return {hit:false,pierce:false,damage:0,wound:false,sixes,face:f,spent:0};
+    const actualInjury=injury??effectiveInjury(w);
+    const choice=chooseSixes(f,sixes,w,approach,strength,opponent,context,{keen,heavyBonus,injury:actualInjury,canPierce,adversary});
+    const wound=choice.pierce?!protect(rng,actualInjury,opponent.armor,!!opponent.shadow):false;
+    return {hit,pierce:choice.pierce,damage:choice.damage,wound,sixes,face:f,spent:choice.spent};
+  }
+  function protect(rng,injury,armor,shadow){
+    const feat=rollFeat(rng,false,shadow);if(feat.auto)return true;
+    let sum=feat.v;for(let i=0;i<armor;i++)sum+=rollD6(rng);
+    return sum>=injury;
+  }
+  function getSuccessDistribution(n){
+    const out=new Map([['0,0',1]]);
+    let current=out;
+    for(let i=0;i<n;i++){
+      const next=new Map();for(const [key,nWays] of current){const [sum,six]=key.split(',').map(Number);for(let d=1;d<=6;d++){const k=`${sum+d},${six+(d===6?1:0)}`;next.set(k,(next.get(k)||0)+nWays);}}
+      current=next;
+    }
+    return current;
+  }
+  function attackOdds(w,hero,enemy){
+    const states=getSuccessDistribution(hero.proficiency);
+    let hit=0,pierce=0,avgDmg=0;
+    const tn=hero.strengthTN+enemy.parry;
+    const featOutcomes=hero.featDice===2?144:12;
+    const pf=protectionFailure(effectiveInjury(w),enemy.armor,!!enemy.shadow);
+    for(let i=0;i<12;i++)for(let j=0;j<(hero.featDice===2?12:1);j++){
+      const f=hero.featDice===2?[heroFeat(i),heroFeat(j)].sort((a,b)=>b.rank-a.rank)[0]:heroFeat(i);
+      for(const [key,count] of states){
+        const [sum,sixes]=key.split(',').map(Number),chance=count/(featOutcomes*Math.pow(6,hero.proficiency));
+        if(!(f.auto||f.v+sum>=tn))continue;
+        hit+=chance;
+        const choice=chooseSixes(f,sixes,w,hero.approach,hero.strength,enemy,{},{});
+        if(choice.pierce)pierce+=chance;
+        avgDmg+=chance*choice.damage;
+      }
+    }
+    return {tn,hit,pierce,avgDmg,protectFail:pf,wound:pierce*pf};
+  }
+  function protectionFailure(injury,armor,shadow){
+    const cacheKey=`${injury}:${armor}:${!!shadow}`;
+    if(failCache.has(cacheKey))return failCache.get(cacheKey);
+    const states=getSuccessDistribution(armor);
+    let fail=0;
+    for(let f=0;f<12;f++){
+      const feat=foeFeat(f,shadow);
+      for(const [k,n] of states){const sum=Number(k.split(',')[0]);if(!feat.auto&&feat.v+sum<injury)fail+=n;}
+    }
+    const result=fail/(12*Math.pow(6,armor));
+    failCache.set(cacheKey,result);
+    return result;
+  }
+  function foeHitOdds(enemy,parry){
+    const states=getSuccessDistribution(enemy.proficiency);
+    let successes=0;
+    for(let i=0;i<12;i++){
+      const f=foeFeat(i,enemy.shadow);
+      for(const [key,n] of states){const sum=Number(key.split(',')[0]);if(f.auto||f.v+sum>=parry)successes+=n;}
+    }
+    return successes/(12*Math.pow(6,enemy.proficiency));
+  }
+  function seedRng(seed){let state=seed>>>0;return ()=>{state=(state+0x6D2B79F5)>>>0;let t=state;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};}
+  function hashSeed(a,b,c,d){
+    let x=(a^Math.imul(b+1,0x9e3779b1)^Math.imul(c+2,0x85ebca6b)^Math.imul(d+3,0xc2b2ae35))>>>0;
+    x=Math.imul(x^(x>>>16),0x7feb352d);x=Math.imul(x^(x>>>15),0x846ca68b);return (x^(x>>>16))>>>0;
+  }
+  function simulate(w,hero,enemy,iterations=3500,seed=1011){
+    let wins=0,losses=0,unresolved=0,rounds=0,heroHits=0,heroWounds=0;
+    const target=hero.strengthTN+enemy.parry;
+    const heroAtt={weapon:w,skill:hero.proficiency,featDice:hero.featDice,tn:target,keen:false,approach:hero.approach,strength:hero.strength,shadow:false};
+    const foeAtt={weapon:{damage:enemy.damage,injury:enemy.injury,cat:'heavy',style:'compact'},skill:enemy.proficiency,featDice:1,tn:shieldDetails(w,hero).totalParry,keen:false,approach:'pierce',strength:enemy.attribute,heavyBonus:enemy.attribute,shadow:enemy.shadow,injury:enemy.injury,canPierce:!!enemy.pierce,adversary:true};
+    const outcomes=[];
+    for(let it=0;it<iterations;it++){
+      let foeHp=enemy.endurance,foeW=0,heroHp=hero.endurance,heroW=0,done=false,result=0;
+      for(let r=1;r<=hero.roundLimit;r++){
+        const atk=rollAttack(seedRng(hashSeed(seed,it,r,0)),heroAtt,{armor:enemy.armor,shadow:enemy.shadow,endurance:enemy.endurance,might:enemy.might},{foeHp,foeW});
+        foeHp-=atk.damage;foeW+=Number(atk.wound);
+        if(foeHp<=0||foeW>=enemy.might){wins++;rounds+=r;done=true;result=1;break;}
+        for(let a=0;a<enemy.attacks;a++){
+          const reaction=rollAttack(seedRng(hashSeed(seed,it,r,a+1)),foeAtt,{armor:hero.armor,shadow:false,endurance:hero.endurance,might:2},{foeHp:heroHp,foeW:heroW});
+          if(reaction.hit)heroHits++;
+          heroHp-=reaction.damage;heroW+=Number(reaction.wound);
+          if(heroHp<=0||heroW>=2){losses++;done=true;result=-1;break;}
+        }
+        if(done)break;
+      }
+      if(!done)unresolved++;
+      heroWounds+=heroW;outcomes.push(result);
+    }
+    const se=1.96*Math.sqrt(Math.max(0,(wins/iterations)*(1-wins/iterations))/iterations);
+    return {wins:wins/iterations,losses:losses/iterations,unresolved:unresolved/iterations,rounds:wins?rounds/wins:null,iterations,heroHits:heroHits/iterations,heroWounds:heroWounds/iterations,margin95:se,outcomes};
+  }
+  function simulatePair(a,b,hero,enemy,iterations=6000,seed=617284){
+    const left=simulate(a,hero,enemy,iterations,seed),right=simulate(b,hero,enemy,iterations,seed);
+    let diffs=0,diff2=0;
+    for(let i=0;i<iterations;i++){const d=(left.outcomes[i]===1?1:0)-(right.outcomes[i]===1?1:0);diffs+=d;diff2+=d*d;}
+    const d=diffs/iterations;
+    const margin95=1.96*Math.sqrt(Math.max(0,diff2/iterations-d*d)/iterations);
+    delete left.outcomes;delete right.outcomes;
+    return {a:left,b:right,delta:d,margin95};
+  }
+  // Normalisierte Fortschrittsmetrik: Schaden relativ zur Ausdauer und Wunden
+  // relativ zur Macht. Vermeidet aufgeblähte Faktoren bei kleinen Basis-Wundchancen.
+  function encounterProgress(odds,enemy){
+    return 0.65*odds.avgDmg/Math.max(1,enemy.endurance)
+         + 0.35*odds.wound/Math.max(1,enemy.might);
+  }
+  function evaluateBalance(w,hero,enemy){
+    const orig=baselineWeapon(w),ia=weaponInfo(w),ib=weaponInfo(orig);
+    let score=0;const rows=[];
+    const cases=[
+      {...hero,proficiency:Math.max(2,hero.proficiency-1),featDice:1},
+      {...hero,featDice:2}
+    ];
+    for(const id of ['light','medium','heavy']){
+      const e={...ENEMIES[id],shadow:enemy.shadow};
+      let sum=0;
+      for(const h of cases){
+        const a=attackOdds(w,h,e),b=attackOdds(orig,h,e);
+        const ap=encounterProgress(a,e),bp=encounterProgress(b,e);
+        sum+=bp?ap/bp:1;
+      }
+      score+=sum/cases.length/3;
+      rows.push({name:e.name,progressRatio:sum/cases.length});
+    }
+    const index=100*score+4*(ib.load-ia.load);
+    const dominated=effectiveDamage(w)>=effectiveDamage(orig)&&effectiveInjury(w)>=effectiveInjury(orig)&&ia.load<=ib.load&&(effectiveDamage(w)>effectiveDamage(orig)||effectiveInjury(w)>effectiveInjury(orig)||ia.load<ib.load);
+    return {index,rows,dominated,allowed:ia.allowed,caution:index>=125||dominated,base:orig};
+  }
+  function optimize(catId,hero,enemy,goal='balanced'){
+    const c=CATEGORIES.find(x=>x.id===catId);if(!c)return null;
+    const all=[];
+    const styles=c.bow?[c.style]:['tiny','light'].includes(c.id)?['compact','blade']:['compact','blade','spear'];
+    for(let d=c.dmin;d<=c.dmax;d++)for(let v=c.vmin;v<=c.vmax;v+=2)for(const style of styles)for(const light of [false,true]){
+      const w=defaultWeapon(catId);Object.assign(w,{damage:d,injury:v,style,light,name:'Optimierte '+c.name});
+      const info=weaponInfo(w);if(!info.allowed||(light&&info.baseLoad===0))continue;
+      const odds=attackOdds(w,hero,enemy);
+      // Erwarteter Fortschritt in Ausdauer- und Wundenanteilen je Angriff.
+      const balanced=100*encounterProgress(odds,enemy)-0.12*info.load;
+      const scores={damage:odds.avgDmg,wounds:odds.wound,balanced,light:balanced/(1+0.4*info.load)};
+      all.push({w,info,odds,scores});
+    }
+    all.sort((a,b)=>b.scores[goal]-a.scores[goal] || a.info.load-b.info.load || b.w.injury-a.w.injury);
+    return {best:all[0]||null,count:all.length,alternatives:all.slice(0,5),goal};
+  }
+  function baselineWeapon(w){const c=$cat(w.cat);return {name:`Original-${c.name}`,cat:w.cat,damage:c.base[0],injury:c.base[1],style:c.style,light:false,versatile2h:true,rewards:{keen:false,fell:false,grievous:false}};}
+  return {buildingPrice,injurySurcharge,CATEGORIES,SHIELDS,shieldCompatible,shieldDetails,TEMPLATES,templateWeapon,ENEMIES,defaultWeapon,defaultHero,defaultEnemy,weaponInfo,attackOdds,foeHitOdds,protectionFailure,simulate,simulatePair,evaluateBalance,optimize,chooseSixes,seedRng,rollAttack,rollFeat,heroFeat,foeFeat,baselineWeapon,getHeavyBonus,getPierceBonus,effectiveInjury,effectiveDamage,weaponRewards};
+})();
+if(typeof module!=='undefined')module.exports=WENGINE;
+
+
+
+</script><script id="frontend">
+'use strict';
+const $=id=>document.getElementById(id);
+const E=x=>String(x??'').replace(/[&<>"']/g,t=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[t]));
+const F=n=>Number(n||0).toFixed(2).replace('.',',');
+const P=n=>F(100*(n||0))+' %';
+const kinds=WENGINE.CATEGORIES;
+let s={tab:'build',w:WENGINE.defaultWeapon(),h:WENGINE.defaultHero(),e:WENGINE.defaultEnemy(),saved:[],profiles:[],profileSelection:'',activeProfile:'',selected:'baseline',template:'',preset:'medium',combat:null,goal:'balanced',optimizer:null,advanced:false,openHero:false,openEnemy:false,status:'',loading:false,tradeNote:'',sections:{templates:false,reco:false,library:false,heroes:false}};
+const STORE='der-eine-ring-waffenschmiede-v10';
+try{
+ let old=JSON.parse(localStorage.getItem('der-eine-ring-waffenschmiede-v5')||'null');
+ let cur=JSON.parse(localStorage.getItem(STORE)||'null');
+ let previous=JSON.parse(localStorage.getItem('der-eine-ring-waffenschmiede-v9')||'null');
+ let last=JSON.parse(localStorage.getItem('der-eine-ring-waffenschmiede-v8')||'null');
+ const data=cur||previous||last||old;
+ if(data){
+   if(Array.isArray(data.saved))s.saved=data.saved.slice(0,60).filter(w=>kinds.some(c=>c.id===w.cat)).map(w=>({...w,rewards:WENGINE.weaponRewards(w)}));
+   if(Array.isArray(data.profiles))s.profiles=data.profiles.filter(p=>p&&typeof p.name==='string'&&p.hero).slice(0,25).map(p=>({...p,hero:cleanHero(p.hero)}));
+   if(data.h)s.h=cleanHero(data.h);
+   if(data.activeProfile && Array.isArray(data.profiles) && data.profiles.some(p=>p.id===data.activeProfile))s.activeProfile=data.activeProfile;
+   if(data.e)s.e=cleanEnemy(data.e);
+   if(data.draft&&typeof data.draft==='object'&&kinds.some(c=>c.id===data.draft.cat)){
+     const d=data.draft,c=kinds.find(c=>c.id===d.cat);
+     if(Number.isFinite(d.damage)&&Number.isFinite(d.injury)&&d.damage>=c.dmin&&d.damage<=c.dmax&&d.injury>=c.vmin&&d.injury<=c.vmax){
+       s.w={...WENGINE.defaultWeapon(d.cat),...d,name:String(d.name||'').slice(0,80),rewards:WENGINE.weaponRewards(d)};
+       s.status='Letzten Entwurf automatisch wiederhergestellt.';
+     }
+   }
+ }
+}catch(e){s.status='Lokaler Speicher nicht verfügbar. JSON-Export bleibt möglich.';}
+function cleanHero(hero){
+ const h={...WENGINE.defaultHero(),...(hero&&typeof hero==='object'&&!Array.isArray(hero)?hero:{})};
+ h.culture=h.culture==='hobbit'?'hobbit':'other';
+ h.shield=Object.hasOwn(WENGINE.SHIELDS,h.shield)?h.shield:'none';
+ if(h.culture==='hobbit'&&h.shield==='great')h.shield='none';
+ return h;
+}
+function cleanEnemy(enemy){
+ return {...WENGINE.defaultEnemy(),...(enemy&&typeof enemy==='object'&&!Array.isArray(enemy)?enemy:{})};
+}
+function cleanImportWeapon(w){
+ if(!w||typeof w!=='object'||Array.isArray(w))return null;
+ const c=kinds.find(x=>x.id===w.cat);
+ if(!c||!Number.isFinite(w.damage)||!Number.isFinite(w.injury)||!Number.isInteger(w.damage)||!Number.isInteger(w.injury))return null;
+ if(w.damage<0||w.damage>100||w.injury<0||w.injury>100)return null;
+ const style=typeof w.style==='string'?w.style:c.style;
+ return {...WENGINE.defaultWeapon(w.cat),name:String(w.name||'').slice(0,80),damage:w.damage,injury:w.injury,style,
+   light:!!w.light,versatile2h:!!w.versatile2h,rewards:WENGINE.weaponRewards(w)};
+}
+// Ohne gespeicherten Entwurf startet die App mit einer leeren Wunschwaffe.
+function persist(){try{localStorage.setItem(STORE,JSON.stringify({saved:s.saved,profiles:s.profiles,activeProfile:s.activeProfile,h:s.h,e:s.e,draft:s.w}));}catch(e){s.status='Speichern nicht verfügbar – bitte Waffen exportieren.';}}
+const options=(items,v)=>items.map(([a,b])=>`<option value="${E(a)}" ${String(a)===String(v)?'selected':''}>${E(b)}</option>`).join('');
+const control=(scope,key,label,items,value)=>`<label class="field"><span>${E(label)}</span><select data-scope="${scope}" data-key="${key}">${options(items,value)}</select></label>`;
+const numberInput=(scope,key,label,value,min,max,step=1)=>`<label class="field"><span>${E(label)}</span><input type="number" data-scope="${scope}" data-key="${key}" value="${E(value)}" min="${min}" max="${max}" step="${step}"></label>`;
+const slider=(scope,key,label,v,min,max,step=1,note='')=>`<div class="sliderfield"><label for="${scope}-${key}">${E(label)} <b id="out-${scope}-${key}">${v}</b></label><input id="${scope}-${key}" type="range" data-scope="${scope}" data-key="${key}" value="${v}" min="${min}" max="${max}" step="${step}">${note?`<small>${E(note)}</small>`:''}</div>`;
+const check=(scope,key,label,value)=>`<label class="checkfield"><input type="checkbox" data-scope="${scope}" data-key="${key}" ${value?'checked':''}><span>${E(label)}</span></label>`;
+function currInfo(){return s.w.cat?WENGINE.weaponInfo(s.w):null;}
+function sd(w){return WENGINE.shieldDetails(w,s.h);}
+function shieldSelect(){
+ const available=Object.entries(WENGINE.SHIELDS).filter(([id])=>!(s.h.culture==='hobbit'&&id==='great'));
+ return control('h','shield','Getragener Schild (Heldenausrüstung)',available.map(([id,v])=>[id,`${v.name}${v.parry?' · Parade +'+v.parry+' / Belastung '+v.load:''}`]),s.h.culture==='hobbit'&&s.h.shield==='great'?'none':s.h.shield||'none')+
+ (s.h.culture==='hobbit'?'<p class="fine">Für Hobbits ist der große Schild nicht auswählbar.</p>':'');
+}
+function defencePanel(w,compact=false){
+ const d=sd(w),foe=WENGINE.foeHitOdds(s.e,d.totalParry);
+ return `<div class="defense-card">${compact?'':`<h3>Schild & Verteidigung</h3>${shieldSelect()}`}
+ <div class="defense-row"><div class="defense-stat"><span>Deine Parade</span><strong>${d.totalParry}</strong></div>
+ <div class="defense-stat"><span>Gegner trifft</span><strong>${P(foe)}</strong></div>
+ <div class="defense-stat"><span>Waffe + Schild</span><strong>${d.weaponAndShieldLoad}</strong></div></div>
+ <p class="defense-help">${!d.compatible&&s.h.shield!=='none'?'Schildbonus bei dieser Waffenführung inaktiv (beide Hände belegt). ':''}
+ Parade ohne Schild: ${s.h.parry} · ${d.equipped?d.name+' aktiv':'Kein Schild aktiv'} · Die angezeigte Last enthält nur Waffe und Schild, nicht Rüstung oder übrige Ausrüstung. Hobbits können den großen Schild nicht auswählen.</p></div>`;
+}
+function heroStatus(){
+ const el=$('heroStatus');if(!s.w.cat){el.hidden=true;return;}
+ const profile=s.profiles.find(x=>x.id===s.activeProfile),d=sd(s.w);
+ el.hidden=false;el.innerHTML=`<span>Held: <strong>${E(s.h.name||profile?.name||'Aktuelles Profil')}</strong></span><span>Parade <strong>${d.totalParry}</strong> · ${E(d.equipped?d.name:'ohne Schild')}</span>`;
+}
+function chooseB(){return s.saved.find(w=>w.uid===s.selected)||WENGINE.baselineWeapon(s.w);}
+function badged(w){let r=WENGINE.weaponRewards(w);return [r.keen?'Scharf':null,r.fell?'Tödlich':null,r.grievous?'Wuchtig':null].filter(Boolean).map(x=>`<span class="pill">${x}</span>`).join('')||'<span class="muted tiny">Keine Belohnungen</span>';}
+function summary(w,brief=false){let i=WENGINE.weaponInfo(w);return `<div class="metrics"><div class="metric"><small>Schaden</small><b>${i.finalDamage}</b></div><div class="metric"><small>Verletzung</small><b>${i.finalInjury}</b></div><div class="metric"><small>Belastung</small><b>${i.load}</b></div></div><div class="pills">${badged(w)}</div>${brief?'':`<div class="meterhead"><span>Baupunkte</span><b>${F(i.price)} / ${F(i.category.budget)}</b></div><div class="meter"><span style="width:${Math.min(100,100*i.price/i.category.budget)}%;background:${i.allowed?'var(--mint)':'var(--red)'}"></span></div><p class="${i.allowed?'goodtext':'badtext'}">${i.allowed?'✓ Bauprüfung bestanden':'⚠ '+E(i.reason)}</p>`}`;}
+function sticky(){
+ const el=$('sticky');if(!s.w.cat){el.hidden=true;return;}
+ const i=currInfo(),rest=i.remaining;
+ el.hidden=false;
+ el.innerHTML=`<span class="stickname" title="${E(s.w.name||i.category.name)}">${E(s.w.name||i.category.name)}</span>
+ <span class="stickstat"><b>${i.finalDamage}</b><small>Schaden</small></span>
+ <span class="stickstat"><b>${i.finalInjury}</b><small>Verletzung</small></span>
+ <span class="stickstat"><b>${i.load}</b><small>Belastung</small></span>
+ <span class="stickstat ${rest>=-1e-8?'positive':'negative'}"><b>${rest>=-1e-8?F(Math.max(0,rest)):'−'+F(-rest)}</b><small>${rest>=-1e-8?'Punkte frei':'Zu viel'}</small></span>`;
+}
+
+// Intelligente Tauschhilfe: Alle echten Kategorie-, Belastungs- und Budgetgrenzen bleiben in Kraft.
+function feasiblePairs(w=s.w){
+ if(!w.cat)return [];
+ const c=kinds.find(x=>x.id===w.cat);if(!c)return [];
+ const pairs=[];
+ for(let damage=c.dmin;damage<=c.dmax;damage++)for(let injury=c.vmin;injury<=c.vmax;injury+=2){
+  const x={...w,damage,injury};if(WENGINE.weaponInfo(x).allowed)pairs.push({damage,injury});
+ }
+ return pairs;
+}
+function nearestPair(w,changed,desired,requireExact=false){
+ const options=feasiblePairs(w),secondary=changed==='damage'?'injury':'damage';
+ const chosen=requireExact?options.filter(x=>x[changed]===desired):options;
+ if(!chosen.length)return null;
+ return chosen.sort((a,b)=>
+  Math.abs(a[changed]-desired)-Math.abs(b[changed]-desired) ||
+  Math.abs(a[secondary]-w[secondary])-Math.abs(b[secondary]-w[secondary]) ||
+  (a.damage+a.injury/2)-(b.damage+b.injury/2))[0];
+}
+function describeTrade(key,to,pair,original=s.w){
+ const text=key==='damage'?'Schaden':'Verletzung',other=key==='damage'?'injury':'damage';
+ const otherName=other==='damage'?'Schaden':'Verletzung';
+ const before=original[other];
+ return `${text}: ${original[key]} → ${pair[key]}`+(before!==pair[other]?` · ${otherName}: ${before} → ${pair[other]}`:'');
+}
+function applySmartSlider(key,desired){
+ const before={...s.w};
+ const pair=nearestPair(before,key,desired);
+ if(!pair){
+  // Bei beschädigten Importdaten immer den sichtbaren Hinweis belassen.
+  s.w[key]=desired;s.tradeNote='Keine regelkonforme Kombination für diese Bauform gefunden.';return;
+ }
+ s.w.damage=pair.damage;s.w.injury=pair.injury;
+ s.tradeNote=(pair[key]!==desired||pair[key==='damage'?'injury':'damage']!==before[key==='damage'?'injury':'damage'])?
+   `Automatischer Tausch: ${describeTrade(key,desired,pair,before)}${pair[key]!==desired?' · gewünschter Wert ist nicht erreichbar.':''}`:'';
+}
+function pointSummary(info){
+ const rest=info.remaining,positive=rest>=-1e-8;
+ return `<div class="point-summary ${positive?'':'invalid'}" aria-live="polite">
+  <strong>${positive?'Noch '+F(Math.max(0,rest))+' Baupunkte verfügbar':F(-rest)+' Baupunkte zu viel'}</strong>
+  <small>${F(info.price)} von ${F(info.category.budget)} Punkten verbraucht</small>
+  <div class="meter"><span style="width:${Math.min(100,Math.max(0,100*info.price/info.category.budget))}%;background:${positive?'var(--mint)':'var(--red)'}"></span></div>
+ </div>`;
+}
+function tradeActions(){
+ if(!s.w.cat)return '';
+ const inf=currInfo();
+ let buttons=[];
+ for(const key of ['damage','injury']){
+  const c=inf.category,next=s.w[key]+(key==='damage'?1:2);
+  if(next>(key==='damage'?c.dmax:c.vmax))continue;
+  const pair=nearestPair(s.w,key,next,true);
+  if(!pair)continue;
+  const other=key==='damage'?'injury':'damage',otherName=other==='damage'?'Schaden':'Verletzung';
+  const suffix=pair[other]===s.w[other]?'ohne Tausch':`${otherName} ${s.w[other]} → ${pair[other]}`;
+  buttons.push(`<button data-action="trade" data-key="${key}" title="${E(suffix)}">${key==='damage'?'+1 Schaden':'+2 Verletzung'} · ${E(suffix)}</button>`);
+ }
+ if(!inf.allowed){
+  const nearest=feasiblePairs(s.w).sort((a,b)=>Math.abs(a.damage-s.w.damage)+.5*Math.abs(a.injury-s.w.injury)-Math.abs(b.damage-s.w.damage)-.5*Math.abs(b.injury-s.w.injury))[0];
+  if(nearest)buttons.unshift(`<button class="primary" data-action="fixWeapon">Werte korrigieren (${nearest.damage} Schaden / ${nearest.injury} Verletzung)</button>`);
+ }
+ return `<div class="tradearea"><strong>Passende Verbesserungen</strong>
+ <p class="hint">Der Rechner berücksichtigt automatisch alle Baugrenzen. Bei Bedarf wird der andere Wert angepasst.</p>
+ ${buttons.length?`<div class="buttons">${buttons.join('')}</div>`:'<p class="fine">Keine weitere Verbesserung innerhalb der Grenzen möglich.</p>'}</div>`;
+}
+function accordion(id,title,subtitle,inner,count=''){
+ const open=!!s.sections[id];
+ return `<section class="panel fold-panel"><button class="fold-trigger" data-action="toggleSection" data-section="${id}" aria-expanded="${open}">
+ <span>${E(title)}${count?` (${E(count)})`:''}<small>${E(subtitle)}</small></span><span aria-hidden="true">${open?'▾':'▸'}</span></button>
+ ${open?`<div class="fold-body">${inner}</div>`:''}</section>`;
+}
+function compactExtras(){
+ if(!s.w.cat)return '';
+ return accordion('templates','Originalwaffen','Buchvorlage als Startpunkt',templatesUI());
+}
+function extraSections(){
+ const cat=kinds.find(x=>x.id===s.w.cat);
+ return compactExtras()
+  +(cat?accordion('reco',cat.bow?'Bogen-Empfehlungen':'Waffenoptimierer','Schaden, Wunden, Allrounder und Leichtbau',recommendUI()):'')
+  +accordion('library','Gespeicherte Waffen','Waffen laden, exportieren oder löschen',libraryUI(),String(s.saved.length))
+  +accordion('heroes','Heldenprofile','Helden laden oder löschen',heroLibraryUI(),String(s.profiles.length));
+}
+function savedControls(){return `<div class="buttonrow">${control('s','selected','Gespeicherte Waffe / Vergleich',[['baseline','Originalwaffe'],...s.saved.map(w=>[w.uid,(WENGINE.weaponInfo(w).allowed?'':'⚠ Ungültig · ')+(w.name||WENGINE.CATEGORIES.find(c=>c.id===w.cat)?.name||'Waffe')])],s.selected)}<button data-action="load" ${s.selected==='baseline'?'disabled':''}>Laden</button><button data-action="remove" ${s.selected==='baseline'?'disabled':''}>Löschen</button></div>`;}
+const goalLabels={damage:'Maximaler Ausdauerschaden',wounds:'Höchste Wundchance',balanced:'Allrounder',light:'Stärkste leichte Variante'};
+function calcOptimizer(goal){return WENGINE.optimize(s.w.cat,s.h,s.e,goal);}
+function recommendUI(){const cat=kinds.find(c=>c.id===s.w.cat);if(!cat)return '';
+ const automatic=cat.bow;
+ if(!automatic&&!s.optimizer)return `<div class="panel compact"><div class="sectionhead"><h2>Waffenoptimierer</h2><button data-action="optimize">Möglichkeiten berechnen</button></div><p class="hint">Durchsucht automatisch alle zulässigen Werte und zeigt vier Spezialisierungen.</p></div>`;
+ const profiles=Object.keys(goalLabels).map(goal=>({goal,result:calcOptimizer(goal)}));
+ return `<section class="panel"><div class="sectionhead"><h2>${cat.bow?'Bogen-Empfehlung':'Waffenoptimierer'}</h2><span class="tag">${profiles[0].result?.count||0} Kombinationen</span></div><p class="hint">Vier Spielstile, anhand deiner aktuellen Kampf- und Gegnerwerte. Grundlage sind Baupunkte, Verletzung, Schaden und Belastung – ohne Waffenbelohnungen.</p><div class="recoGrid">${profiles.map(({goal,result})=>{if(!result?.best)return '';
+ const x=result.best;return `<article class="recocard ${goal==='balanced'?'featured':''}"><h3>${E(goalLabels[goal])}</h3><p><strong>${x.w.damage}</strong> Schaden · <strong>${x.w.injury}</strong> Verletzung · <strong>${x.info.load}</strong> Belastung</p><p class="hint">Ø ${F(x.odds.avgDmg)} Ausdauer · ${P(x.odds.wound)} Wundchance</p><button data-action="adopt" data-goal="${goal}">Übernehmen</button></article>`;}).join('')}</div><p class="fine">Die Optimierung berücksichtigt jetzt auch unterschiedliche zulässige Bauformen. Die Allround-Bewertung verwendet eine offengelegte Gewichtung, keinen offiziellen Regelwert. Die optimale Waffe kann sich mit der gegnerischen Rüstung oder Ausdauer ändern.</p></section>`;
+}
+function templatesUI(){
+ return `<section class="panel"><div class="sectionhead"><h2>Originalwaffen als Vorlage</h2><span class="tag">Werte aus der Buch-Tabelle</span></div><p class="hint">Optional: Eine Buchwaffe laden und anschließend verändern. Deine eigenen Waffen bleiben separat gespeichert.</p><div class="buttonrow">${control('s','template','Buchwaffe wählen',[['','— Vorlage auswählen —'],...WENGINE.TEMPLATES.map(t=>[t.id,`${t.name} · ${t.damage} Schaden / ${t.injury}${t.cat==='versatile'?' (2H)':''} Verletzung`])],s.template||'')}<button data-action="loadTemplate" ${s.template?'':'disabled'}>Vorlage laden</button></div></section>`;
+}
+function libraryUI(){return `<section class="panel"><div class="sectionhead"><h2>Waffenbibliothek (${s.saved.length})</h2><div class="buttonrow"><button data-action="export">Exportieren</button><button data-action="import">Importieren</button></div></div>${s.saved.length?`<div class="library">${s.saved.map(w=>{let i=WENGINE.weaponInfo(w);return `<div class="libraryItem"><div><b>${E(w.name||i.category.name)}</b><p class="hint">${E(i.category.name)} · ${i.finalDamage} Schaden / ${i.finalInjury} Verletzung / ${i.load} Belastung</p>${i.allowed?'<p class="goodtext tiny">✓ Bauprüfung gültig</p>':`<p class="badtext tiny">⚠ Nicht regelkonform: ${E(i.reason)}</p>`}</div><div class="libraryActions"><button data-action="loadById" data-id="${E(w.uid)}">Laden</button><button class="delete-action" data-action="deleteWeaponById" data-id="${E(w.uid)}" aria-label="${E(w.name||i.category.name)} löschen">Löschen</button></div></div>`;}).join('')}</div>`:'<p class="hint">Du hast noch keine Waffen gespeichert. Neue Entwürfe erscheinen hier.</p>'}<p class="fine">Waffen bleiben lokal auf diesem Gerät; für eine dauerhafte Sicherung regelmäßig als JSON exportieren.</p></section>`;}
+function heroLibraryUI(){return `<section class="panel"><div class="sectionhead"><h2>Gespeicherte Helden (${s.profiles.length})</h2><span class="tag">Heldenprofile</span></div>${s.profiles.length?`<div class="library">${s.profiles.map(p=>`<div class="libraryItem"><div><b>${E(p.name)}</b><p class="hint">${E(p.hero?.proficiency??'?')}W6 · Parade ${E(p.hero?.parry??'?')} · KRAFT-SG ${E(p.hero?.strengthTN??'?')}</p></div><div class="libraryActions"><button data-action="loadProfileById" data-id="${E(p.id)}">Laden</button><button class="delete-action" data-action="deleteProfileById" data-id="${E(p.id)}" aria-label="${E(p.name)} löschen">Löschen</button></div></div>`).join('')}</div>`:'<p class="hint">Noch keine Heldenprofile gespeichert. Du kannst im Probekampf unter „Dein Held“ ein Profil speichern.</p>'}<p class="fine">Beim Löschen eines gespeicherten Profils bleiben die aktuell eingestellten Heldenwerte erhalten.</p></section>`;}
+function buildUI(){if(!s.w.cat)return `<section class="panel first"><h2>Deine neue Wunschwaffe</h2><p class="hint">Beginne mit einer Kategorie. Es ist keine Waffe vorausgewählt.</p>${control('w','cat','Waffenkategorie',[['','— Bitte auswählen —'],...kinds.map(c=>[c.id,c.name])],'')}<label class="field"><span>Name (optional)</span><input data-scope="w" data-key="name" maxlength="80" placeholder="Meine Wunschwaffe" value="${E(s.w.name)}"></label></section>${extraSections()}`;
+ const cat=kinds.find(c=>c.id===s.w.cat),inf=currInfo(),balance=WENGINE.evaluateBalance(s.w,s.h,s.e);
+ let out=`<div class="twocol"><section class="panel first"><h2>Waffe bauen</h2><label class="field"><span>Waffenname</span><input data-scope="w" data-key="name" maxlength="80" value="${E(s.w.name)}" placeholder="Meine Wunschwaffe"></label>${control('w','cat','Kategorie',kinds.map(c=>[c.id,c.name]),s.w.cat)}`;
+ if(!cat.bow)out+=control('w','style','Bauform',([['compact','Kompakt / Axt / Keule'],['blade','Schwert / lange Klinge'],...(['tiny','light'].includes(cat.id)?[]:[['spear','Speer / Stangenwaffe']])]),s.w.style);
+ out+=slider('w','damage','Schaden',s.w.damage,cat.dmin,cat.dmax)+slider('w','injury',cat.versatile?'Verletzung (zweihändig)':'Verletzung',s.w.injury,cat.vmin,cat.vmax,2,cat.versatile?`Einhändig: ${s.w.injury-2} · Zweihändig: ${s.w.injury}`:'');
+  out+=`<div class="advanced"><button data-action="advanced" class="textbutton" aria-expanded="${s.advanced}">${s.advanced?'▾':'▸'} Zusatzoptionen (Leichtbau & Belohnungen)${s.w.light?' · Leichtbau aktiv':''}</button>${s.advanced?`${cat.versatile?check('w','versatile2h','Im Kampf zweihändig führen',s.w.versatile2h):''}${check('w','light','Leichtbau (−1 Belastung, +1,25 Baupunkte)',s.w.light)}<p class="hint">Belohnungen sind bereits im Spiel erworbene Verbesserungen. Sie verbrauchen keine Baupunkte.</p>${check('r','keen','Scharf · Piercing Blow ab 9',!!s.w.rewards?.keen)}${check('r','fell','Tödlich · Verletzung +2',!!s.w.rewards?.fell)}${check('r','grievous','Wuchtig · Schaden +1',!!s.w.rewards?.grievous)}<p class="fine">Grundwerte nicht zusätzlich erhöhen, wenn ein Belohnungsbonus schon enthalten ist.</p>`:''}</div>`;
+  out+=pointSummary(inf)+tradeActions();
+  if(s.tradeNote)out+=`<div class="trade-feedback" role="status">${E(s.tradeNote)}</div>`;
+  out+=`${inf.allowed?'':`<p class="badtext">⚠ Achtung: Diese Waffe ist ungültig (${E(inf.reason)}). Beim Speichern wird nachgefragt.</p>`}<div class="buttonrow"><button class="primary" data-action="save">Waffe speichern</button><button data-action="newW">Neue Wunschwaffe</button></div></section><section class="panel result"><h2>Waffenwerte</h2>${summary(s.w)}${defencePanel(s.w)}<details class="subpanel"><summary>So werden Baupunkte berechnet</summary><p class="hint">Grundpreis = Schaden + 0,38 × Verletzung. Für Verletzung über 16, 18 und 20 steigen die Zusatzkosten stufenweise. Leichtbau kostet 1,25 Punkte. Die angezeigten Budgets sind Kategoriegrenzen; Buchvorlagen bleiben gültig.</p><p class="fine">Preisstufen je +2 Verletzung: bis 16 = 0,76 Punkte · 16→18 = 1,06 · 18→20 = 1,61 · über 20 = 2,51 Punkte je Stufe (bis 26).</p></details><p class="hint">Die Belastung der Waffe wird aus Schaden, Verletzung und Bauform errechnet. Der Schild zählt getrennt zur getragenen Last. Waffenbelohnungen bleiben getrennt.</p>${balance.caution?`<p class="warntext"><b>Kampfbalance-Hinweis:</b> Diese Kombination fällt im Vergleich zur Kategorie-Referenz auf (Index ${Math.round(balance.index)}; 100 = Referenz). Baupunkte allein garantieren keine gleich starke Waffe.</p>`:``}<div class="buttonrow"><button class="primary" data-tablink="compare">Vergleichen</button><button data-tablink="combat">Probekampf</button></div></section></div>`;
+ out+=extraSections();return out;
+}
+function heroSettings(){return `<div class="formgrid"><label class="field"><span>Heldenname</span><input data-scope="h" data-key="name" value="${E(s.h.name||'')}" placeholder="Optional" maxlength="60"></label>${control('h','culture','Volk des Helden', [['other','Andere Völker'],['hobbit','Hobbit']],s.h.culture||'other')}${numberInput('h','strengthTN','Dein KRAFT-SG',s.h.strengthTN,8,26)}${numberInput('h','parry','Parade ohne Schild',s.h.parry,5,35)}${numberInput('h','proficiency','Waffenfertigkeit (W6)',s.h.proficiency,1,6)}${numberInput('h','strength','KRAFT / Schwerer Hieb',s.h.strength,1,12)}${numberInput('h','endurance','Ausdauer des Helden',s.h.endurance,1,80)}${numberInput('h','armor','Schutzwürfel des Helden',s.h.armor,0,8)}${control('h','featDice','W12 für deinen Angriff',[['1','1W12'],['2','2W12 – besserer zählt']],s.h.featDice)}${control('h','approach','Einsatz der W6-Sechsen',[['smart','Intelligent (situationsabhängig)'],['pierce','Durchbohren bevorzugen'],['heavy','Schwere Hiebe bevorzugen']],s.h.approach)}</div>${shieldSelect()}<div class="buttonrow"><label class="field flexfield"><span>Heldenprofil</span><select data-scope="s" data-key="profileSelection">${options([['','— Profil wählen —'],...s.profiles.map(p=>[p.id,p.name])],s.profileSelection)}</select></label><button data-action="saveProfile">Profil speichern</button><button data-action="loadProfile" ${!s.profileSelection?'disabled':''}>Laden</button><button data-action="deleteProfile" ${!s.profileSelection?'disabled':''}>Löschen</button></div>`;}
+function enemySettings(){return `<div class="formgrid"><label class="field"><span>Gegnername</span><input data-scope="e" data-key="name" value="${E(s.e.name||'')}" placeholder="Optional" maxlength="60"></label>${control('s','preset','Gegner-Vorlage',[['light','Leicht'],['medium','Mittel'],['heavy','Schwer'],['custom','Eigener Gegner']],s.preset)}${numberInput('e','parry','Gegnerische Parade (+SG)',s.e.parry,-5,15)}${numberInput('e','proficiency','Gegnerische Fertigkeit (W6)',s.e.proficiency,1,6)}${numberInput('e','armor','Gegnerische Schutzwürfel',s.e.armor,0,8)}${numberInput('e','endurance','Gegnerische Ausdauer',s.e.endurance,1,100)}${numberInput('e','might','Wunden bis Niederlage (Macht)',s.e.might,1,4)}${numberInput('e','attacks','Angriffe pro Runde',s.e.attacks,1,s.e.might)}${numberInput('e','damage','Gegnerischer Schaden',s.e.damage,1,15)}${numberInput('e','injury','Gegnerische Verletzung',s.e.injury,10,28,2)}${numberInput('e','attribute','Gegnerischer Schwerer Hieb',s.e.attribute,1,12)}</div>${check('e','shadow','Schattengegner (Auge = automatischer Erfolg)',!!s.e.shadow)}${check('e','pierce','Gegner hat den Effekt Durchbohren',!!s.e.pierce)}<p class="fine">Der Gegner würfelt gegen <b>deine Parade</b>. Die eigene Parade des Gegners erhöht deinen Angriffszielwert.</p>`;}
+function advancedCombat(){return `<div class="twocol"><section class="panel"><div class="sectionhead"><h2>Dein Held</h2><div class="head-actions"><button data-action="heroExpand">${s.openHero?'Einklappen':'Einstellungen'}</button></div></div>${s.openHero?heroSettings():`<p class="hint">${s.h.proficiency}W6 · ${s.h.featDice}W12 · KRAFT-SG ${s.h.strengthTN} · Parade ${sd(s.w).totalParry} ${sd(s.w).equipped?'(mit '+sd(s.w).name+')':''} · ${s.h.approach==='smart'?'Intelligenter W6-Einsatz':s.h.approach==='pierce'?'Durchbohren bevorzugen':'Schwere Hiebe bevorzugen'}</p>`}</section><section class="panel"><div class="sectionhead"><h2>Gegner</h2><div class="head-actions"><button data-action="enemyExpand">${s.openEnemy?'Einklappen':'Einstellungen'}</button></div></div>${s.openEnemy?enemySettings():`<p class="hint">${E(s.e.name||s.preset)} · ${s.e.armor}W Rüstung · ${s.e.endurance} Ausdauer · ${s.e.proficiency}W6 · ${s.e.attacks} Angriff(e)</p>`}</section></div>`;}
+function svgLineChart(series){
+ const w=390,h=210,L=38,R=14,T=18,B=31,inner=w-L-R,hh=h-T-B;
+ const maxData=Math.max(1,...series.flatMap(x=>x.values));const ceil=Math.max(5,Math.ceil(maxData/5)*5);
+ const x=i=>L+i*inner/6,y=v=>T+hh*(1-v/ceil);
+ let svg=`<svg class="chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Wundchance nach Rüstung">`;
+ for(let k=0;k<=4;k++){let v=ceil*k/4;svg+=`<line x1="${L}" x2="${w-R}" y1="${y(v)}" y2="${y(v)}" stroke="#435559" stroke-width=".8"/><text x="${L-7}" y="${y(v)+4}" text-anchor="end" class="chartlabel">${Math.round(v)}%</text>`;}
+ for(let i=0;i<=6;i++)svg+=`<text x="${x(i)}" y="${h-8}" text-anchor="middle" class="chartlabel">${i}W</text>`;
+ const colors=['#e8c27c','#83b8df'];
+ series.forEach((item,k)=>{svg+=`<polyline fill="none" stroke="${colors[k]}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="${item.values.map((v,i)=>`${x(i)},${y(v)}`).join(' ')}"/>`;item.values.forEach((v,i)=>{svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="${colors[k]}"><title>${E(item.label)}: ${F(v)} % bei ${i} Schutzwürfeln</title></circle>`;});});
+ return svg+'</svg>';
+}
+function woundSeries(a,b){return [{label:'Waffe A',values:[0,1,2,3,4,5,6].map(armor=>100*a.pierce*WENGINE.protectionFailure(WENGINE.effectiveInjury(s.w),armor,!!s.e.shadow))},{label:'Waffe B',values:[0,1,2,3,4,5,6].map(armor=>100*b.pierce*WENGINE.protectionFailure(WENGINE.effectiveInjury(chooseB()),armor,!!s.e.shadow))}];}
+function chartLegend(){return `<div class="legend"><span><i class="swatch a"></i>Waffe A</span><span><i class="swatch b"></i>Waffe B</span></div>`;}
+function balanceUI(w){const b=WENGINE.evaluateBalance(w,s.h,s.e);return `<section class="panel"><div class="sectionhead"><h2>Kampfbalance (Orientierung)</h2><span class="${b.allowed?'goodtext':'badtext'}">${b.allowed?'Bauprüfung: gültig':'Bauprüfung: ungültig'}</span></div><div class="balance"><div><small>Fairness-Index</small><strong>${Math.round(b.index)}</strong><small>100 = Referenzwaffe</small></div><p class="${b.caution?'warntext':'hint'}">${b.caution?'Auffällig: Zusätzlichen Spieltest empfehlen.':'Keine auffällige Überlegenheit in der groben Gesamtbewertung.'}${b.dominated?' Die Waffe dominiert ihre Referenzwerte.':''}</p></div><p class="fine">Heuristik: 65 % Ausdauerfortschritt und 35 % Wundfortschritt, normiert auf Ausdauer bzw. Macht. Vergleich über drei Gegnertypen und zwei Würfelprofile; Belastung wird zusätzlich berücksichtigt. <b>Kein offizieller oder objektiver Balance-Wert.</b> Belohnungen werden bei der Kampfleistung berücksichtigt. Der Index bewertet keine Schildverteidigung; für Einhand-/Zweihandvergleiche sind die gegnerische Trefferchance und der Probekampf entscheidend.</p></section>`;}
+function compareUI(){const b=chooseB(),a=s.w,ao=WENGINE.attackOdds(a,s.h,s.e),bo=WENGINE.attackOdds(b,s.h,s.e),ai=WENGINE.weaponInfo(a),bi=WENGINE.weaponInfo(b);const series=woundSeries(ao,bo);
+ return `<section class="panel"><div class="sectionhead"><h2>Zwei Waffen vergleichen</h2><span class="tag">Gleiche Gegnerbedingungen</span></div>${control('s','selected','Waffe B',[['baseline','Originalwaffe derselben Kategorie'],...s.saved.map(w=>[w.uid,w.name||'Gespeicherte Waffe'])],s.selected)}<div class="defense-card">${shieldSelect()}<p class="defense-help">Gleicher ausgerüsteter Schild, aber nur einhändig geführte Waffen erhalten den Bonus. Die zusätzliche Schildbelastung wird mitverglichen.</p></div><div class="twocol"><article class="subpanel"><h3>A · ${E(a.name||ai.category.name)}</h3>${summary(a,true)}</article><article class="subpanel"><h3>B · ${E(b.name||bi.category.name)}</h3>${summary(b,true)}</article></div><table><thead><tr><th>Kennwert</th><th>Waffe A</th><th>Waffe B</th></tr></thead><tbody><tr><td>Trefferchance</td><td>${P(ao.hit)}</td><td>${P(bo.hit)}</td></tr><tr><td>Durchschlag pro Angriff</td><td>${P(ao.pierce)}</td><td>${P(bo.pierce)}</td></tr><tr><td>Ø Ausdauerschaden</td><td>${F(ao.avgDmg)}</td><td>${F(bo.avgDmg)}</td></tr><tr><td>Wundchance (${s.e.armor}W)</td><td>${P(ao.wound)}</td><td>${P(bo.wound)}</td></tr><tr><td>Waffenbelastung</td><td>${ai.load}</td><td>${bi.load}</td></tr><tr><td>Wirksamer Schild</td><td>${E(sd(a).name)}</td><td>${E(sd(b).name)}</td></tr><tr><td>Parade inkl. Schild</td><td>${sd(a).totalParry}</td><td>${sd(b).totalParry}</td></tr><tr><td>Gegner trifft dich</td><td>${P(WENGINE.foeHitOdds(s.e,sd(a).totalParry))}</td><td>${P(WENGINE.foeHitOdds(s.e,sd(b).totalParry))}</td></tr><tr><td>Belastung Waffe + Schild</td><td>${sd(a).weaponAndShieldLoad}</td><td>${sd(b).weaponAndShieldLoad}</td></tr></tbody></table><h3>Wundchance nach Rüstung</h3>${chartLegend()}${svgLineChart(series)}<p class="fine">Grafik und Tabelle berücksichtigen die Gegnerart bei Schutzproben. Bei intelligentem W6-Einsatz beziehen sich diese Werte auf einen unverletzten Gegner.</p></section>${balanceUI(a)}${advancedCombat()}`;
+}
+function barCompare(label,aa,bb,precision=2){let m=Math.max(1,aa,bb);return `<div class="comparisonbar"><div class="barcaption"><span>${E(label)}</span><b>${F(aa)} / ${F(bb)}</b></div><div class="twobar"><span class="barA" style="width:${Math.max(0,100*aa/m)}%"></span><span class="barB" style="width:${Math.max(0,100*bb/m)}%"></span></div></div>`;}
+function combatUI(){const a=s.w,b=chooseB(),ao=WENGINE.attackOdds(a,s.h,s.e),bo=WENGINE.attackOdds(b,s.h,s.e),hit=WENGINE.foeHitOdds(s.e,sd(a).totalParry);
+ let out=`${advancedCombat()}<section class="panel">${defencePanel(a)}<div class="sectionhead"><h2>Würfeltest</h2><span class="tag">Exakt berechnet</span></div><p class="hint">Du würfelst gegen KRAFT-SG ${s.h.strengthTN} + gegnerische Parade ${s.e.parry} = <b>${ao.tn}</b>. Der Gegner würfelt ${s.e.proficiency}W6 + 1W12 gegen deine Parade <b>${sd(a).totalParry}</b> (Grundparade ${s.h.parry}${sd(a).equipped?', Schild +'+sd(a).parry:''}).</p><div class="metrics"><div class="metric"><small>Dein Treffer</small><b>${P(ao.hit)}</b></div><div class="metric"><small>Durchschlags-Treffer</small><b>${P(ao.pierce)}</b></div><div class="metric"><small>Gegner trifft dich</small><b>${P(hit)}</b></div></div><div class="twocol"><article class="subpanel"><h3>Ausdauerschaden</h3><p class="big">${F(ao.avgDmg)}</p><p class="hint">Erwartung pro Angriff</p></article><article class="subpanel"><h3>Wundchance</h3><p class="big">${P(ao.wound)}</p><p class="hint">Durchschlag × gescheiterte Schutzprobe · gegen ${s.e.armor} Schutzwürfel</p></article></div><p class="hint">Von ${P(ao.pierce)} Durchschlägen wird bei diesem Gegner in ${P(ao.protectFail)} der Fälle die Schutzprobe verfehlt. <b>Wundchance = ${P(ao.pierce)} × ${P(ao.protectFail)} = ${P(ao.wound)}.</b> ${ao.protectFail>0.9?'Mehr Verletzung bringt hier kaum noch etwas; für mehr Wunden brauchst du mehr Durchschlags-Treffer (z. B. durch Scharf, mehr W6 oder Vorteil).':''}</p><h3>Wunden nach Rüstung</h3>${chartLegend()}${svgLineChart(woundSeries(ao,bo))}<p class="fine">W6-Sechsen zählen weiterhin als 6 im Würfelergebnis und können Kampfeffekte auslösen. Das Auge und die Gandalf-Rune sind keine Zahlen und werden nicht durch +1/+2/+3 verändert. Die Schutzprobe berücksichtigt, ob der Gegner Schattengegner ist.</p></section><section class="panel"><div class="sectionhead"><h2>Probekampf</h2><button class="primary" data-action="fight" ${s.loading?'disabled':''}>${s.loading?'Rechne …':'6.000 Duelle je Waffe'}</button></div>${numberInput('h','roundLimit','Max. Kampfrunden',s.h.roundLimit,3,15)}<p class="hint">Vereinfachtes Duell. Der Gegner würfelt gegen die individuelle Parade jeder Waffe. Schildbonus und Schildbelastung gelten nur bei einhändiger Führung; bei zweihändiger Führung entfällt der Bonus. Beide Waffen erhalten dieselben Gegnerwerte und Zufallsbedingungen.</p>`;
+ if(s.combat){const {a:x,b:y,delta,margin95}=s.combat;
+ out+=`<p class="hint"><b>Verteidigung im Vergleich:</b> Waffe A ${sd(a).totalParry} Parade (${P(WENGINE.foeHitOdds(s.e,sd(a).totalParry))} Gegner-Treffer), Waffe B ${sd(b).totalParry} Parade (${P(WENGINE.foeHitOdds(s.e,sd(b).totalParry))} Gegner-Treffer).</p><div class="metrics"><div class="metric"><small>Siege Waffe A</small><b>${P(x.wins)}</b></div><div class="metric"><small>Siege Waffe B</small><b>${P(y.wins)}</b></div><div class="metric"><small>Differenz A − B</small><b>${P(delta)}</b></div></div><p class="hint">95%-Unsicherheitsbereich der Differenz: ${P(delta-margin95)} bis ${P(delta+margin95)}. ${Math.abs(delta)<=margin95?'Der gemessene Unterschied ist statistisch nicht eindeutig.':'Die Differenz liegt außerhalb des geschätzten Stichprobenfehlers.'}</p>${barCompare('Siegchance in %',100*x.wins,100*y.wins)}${barCompare('Ø Runden bis Sieg',x.rounds||0,y.rounds||0)}<table><thead><tr><th>Ergebnis</th><th>Waffe A</th><th>Waffe B</th></tr></thead><tbody><tr><td>Niederlage</td><td>${P(x.losses)}</td><td>${P(y.losses)}</td></tr><tr><td>Unentschieden nach ${s.h.roundLimit} Runden</td><td>${P(x.unresolved)}</td><td>${P(y.unresolved)}</td></tr><tr><td>Ø gegnerische Treffer</td><td>${F(x.heroHits)}</td><td>${F(y.heroHits)}</td></tr><tr><td>Ø erlittene Wunden</td><td>${F(x.heroWounds)}</td><td>${F(y.heroWounds)}</td></tr></tbody></table>`;
+ }else out+=`<p class="hint">Noch kein Duell durchgeführt. Starte den Test, um Siege, Kampfdauer und dein persönliches Risiko zu vergleichen.</p>`;
+ out+=`<p class="fine">Nicht simuliert: Hoffnung, Erschöpfung, Gelände, Position, Rückzug, Gruppenaktionen, weitere Gegnerfähigkeiten. „Intelligent“ nutzt eine auf die aktuelle Gegnersituation abgestimmte Entscheidungsheuristik – keine perfekte Vorhersage der Zukunft.</p></section>${balanceUI(a)}`;
+ return out;
+}
+function render(){heroStatus();document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===s.tab));sticky();let html=s.tab==='build'?buildUI():!s.w.cat?'<section class="panel"><h2>Bitte zuerst eine Waffe wählen</h2><button data-tablink="build">Zur Schmiede</button></section>':s.tab==='compare'?compareUI():combatUI();$('app').innerHTML=html;if(s.status){$('notice').hidden=false;$('notice').textContent=s.status;}else $('notice').hidden=true;}
+function update(scope,key,value){
+ if(scope==='r'){s.w.rewards={...WENGINE.weaponRewards(s.w),[key]:!!value};}
+ else if(scope==='w'){
+  if(key==='cat'){let name=s.w.name;s.w=WENGINE.defaultWeapon(value);s.w.name=name;s.tradeNote='';}
+  else if(key==='name')s.w.name=String(value).slice(0,80);
+  else if(key==='style'||key==='light'){
+   const before={...s.w};s.w[key]=key==='light'?!!value:value;s.tradeNote='';
+   if(!WENGINE.weaponInfo(s.w).allowed && WENGINE.weaponInfo(before).allowed){
+    const best=feasiblePairs(s.w).sort((a,b)=>
+      (Math.abs(a.damage-before.damage)+0.5*Math.abs(a.injury-before.injury))-
+      (Math.abs(b.damage-before.damage)+0.5*Math.abs(b.injury-before.injury)))[0];
+    if(best){s.w.damage=best.damage;s.w.injury=best.injury;
+     s.tradeNote=`Bauform angepasst: Schaden ${before.damage} → ${best.damage}, Verletzung ${before.injury} → ${best.injury}.`;
+    }else{s.w=before;s.tradeNote='Diese Änderung ist innerhalb der Baugrenzen nicht möglich.';}
+   }
+  }
+  else if(key==='versatile2h'){s.w[key]=!!value;s.tradeNote='';}
+  else if(key==='damage'||key==='injury')applySmartSlider(key,Number(value));
+  else s.w[key]=Number(value);
+ }else if(scope==='h'){
+  s.activeProfile='';
+  if(['approach','shield','name','culture'].includes(key))s.h[key]=value;else s.h[key]=Number(value);
+  if(s.h.culture==='hobbit'&&s.h.shield==='great'){
+    s.h.shield='none';s.status='Hobbits dürfen keinen großen Schild tragen. Schildauswahl zurückgesetzt.';
+  }
+ }else if(scope==='e'){
+  s.preset='custom';if(key==='shadow'||key==='pierce')s.e[key]=!!value;else if(key==='name')s.e[key]=String(value).slice(0,60);else s.e[key]=Number(value);
+  if(s.e.attacks>s.e.might)s.e.attacks=s.e.might;
+ }else if(scope==='s'){
+  if(key==='selected')s.selected=value;
+  if(key==='template')s.template=value;
+  if(key==='profileSelection')s.profileSelection=value;
+  if(key==='preset'){s.preset=value;if(value!=='custom')s.e={...WENGINE.ENEMIES[value]};}
+ }else if(scope==='o')s.goal=value;
+ s.combat=null;s.optimizer=null;persist();render();
+}
+$('app').addEventListener('input',ev=>{let t=ev.target;
+ if(t.dataset.key==='name'&&['w','h','e'].includes(t.dataset.scope)){
+  const scope=t.dataset.scope;
+  if(scope==='w')s.w.name=String(t.value).slice(0,80);
+  if(scope==='h'){s.h.name=String(t.value).slice(0,60);s.activeProfile='';}
+  if(scope==='e'){s.e.name=String(t.value).slice(0,60);s.preset='custom';}
+  persist();
+ }
+ if(t.type==='range'){let label=$('out-'+t.dataset.scope+'-'+t.dataset.key);if(label)label.textContent=t.value;}
+});
+// Bei Eingabenamen kein erneutes Rendern beim Verlassen des Feldes; sonst verliert der Button seinen Klick.
+$('app').addEventListener('change',ev=>{const t=ev.target;if(t.dataset.key==='name'&&['w','h','e'].includes(t.dataset.scope))return;if(t.dataset.scope)update(t.dataset.scope,t.dataset.key,t.type==='checkbox'?t.checked:t.value);});
+$('tabs').addEventListener('click',ev=>{let b=ev.target.closest('[data-tab]');if(b){s.tab=b.dataset.tab;render();}});
+document.addEventListener('click',ev=>{
+ const tab=ev.target.closest('[data-tablink]');if(tab){s.tab=tab.dataset.tablink;render();window.scrollTo({top:0,behavior:'smooth'});return;}
+ const t=ev.target.closest('[data-action]');if(!t)return;
+ const action=t.dataset.action;
+ if(action==='newW'){s.w=WENGINE.defaultWeapon();s.tab='build';s.advanced=false;s.tradeNote='';s.status='';}
+ else if(action==='loadTemplate'){
+  const chosen=WENGINE.templateWeapon(s.template);if(chosen){s.w=chosen;s.tab='build';s.advanced=false;s.tradeNote='';s.status='Buchvorlage geladen – du kannst die Werte jetzt ändern.';}
+ }else if(action==='advanced')s.advanced=!s.advanced;
+ else if(action==='toggleSection'){
+  const key=t.dataset.section;if(Object.hasOwn(s.sections,key))s.sections[key]=!s.sections[key];
+ }else if(action==='trade'){
+  const key=t.dataset.key;if(key==='damage'||key==='injury'){
+   const target=s.w[key]+(key==='damage'?1:2),before={...s.w};
+   const pair=nearestPair(before,key,target,true);
+   if(pair){s.w.damage=pair.damage;s.w.injury=pair.injury;s.tradeNote='Tausch übernommen: '+describeTrade(key,target,pair,before);}
+  }
+ }else if(action==='fixWeapon'){
+  const best=feasiblePairs(s.w).sort((a,b)=>(Math.abs(a.damage-s.w.damage)+.5*Math.abs(a.injury-s.w.injury))-(Math.abs(b.damage-s.w.damage)+.5*Math.abs(b.injury-s.w.injury)))[0];
+  if(best){s.w.damage=best.damage;s.w.injury=best.injury;s.tradeNote=`Werte korrigiert auf ${best.damage} Schaden / ${best.injury} Verletzung.`;}
+ }
+ else if(action==='heroExpand')s.openHero=!s.openHero;
+ else if(action==='enemyExpand')s.openEnemy=!s.openEnemy;
+ else if(action==='optimize')s.optimizer=true;
+ else if(action==='adopt'){
+  let best=calcOptimizer(t.dataset.goal)?.best;
+  if(best){const name=s.w.name;const rewards=s.w.rewards;s.w={...best.w,name,rewards};s.tradeNote='';s.status='Optimierte Werte übernommen.';}
+ }else if(action==='save'){
+  if(!s.w.cat){s.status='Bitte zuerst eine Kategorie wählen.';}
+  else{
+   const info=WENGINE.weaponInfo(s.w);
+   if(!info.allowed&&!confirm(`Die Waffe ist nach unseren Baugrenzen UNGÜLTIG (${info.reason}; ${F(info.price)} / ${F(info.category.budget)} Punkte). Trotzdem als Testentwurf speichern?`))return;
+   const uid='w'+Date.now()+Math.round(Math.random()*10000);
+   s.saved.unshift({...s.w,uid});s.saved=s.saved.slice(0,60);s.selected=uid;
+   s.status=info.allowed?'Waffe gespeichert.':'⚠ Ungültiger Testentwurf gespeichert – keine regelkonforme Waffe.';
+  }
+ }else if(action==='loadById'||action==='load'){
+  const id=action==='loadById'?t.dataset.id:s.selected,found=s.saved.find(w=>w.uid===id);
+  if(found){s.w={...found,rewards:WENGINE.weaponRewards(found)};s.tab='build';s.tradeNote='';s.status='Waffe geladen.';}
+ }else if(action==='remove'||action==='deleteWeaponById'){
+  const id=action==='deleteWeaponById'?t.dataset.id:s.selected;
+  const found=s.saved.find(w=>w.uid===id);
+  if(!found)return;
+  if(!confirm(`Gespeicherte Waffe „${found.name||'Unbenannte Waffe'}“ wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.`))return;
+  s.saved=s.saved.filter(w=>w.uid!==id);
+  if(s.selected===id)s.selected='baseline';
+  s.status='Gespeicherte Waffe gelöscht. Der aktuelle Entwurf bleibt erhalten.';
+ }else if(action==='saveProfile'){
+  let name=prompt('Name für das Heldenprofil?','Mein Held');
+  if(name?.trim()){const id='h'+Date.now();s.profiles.unshift({id,name:name.trim().slice(0,60),hero:{...s.h}});s.profiles=s.profiles.slice(0,25);s.profileSelection=id;s.activeProfile=id;s.status='Heldenprofil gespeichert.';}
+ }else if(action==='loadProfile'||action==='loadProfileById'){
+  const id=action==='loadProfileById'?t.dataset.id:s.profileSelection;
+  const found=s.profiles.find(p=>p.id===id);
+  if(found){s.h=cleanHero(found.hero);s.profileSelection=found.id;s.activeProfile=found.id;s.status=`Heldenprofil „${found.name}“ geladen.`;}
+ }else if(action==='deleteProfile'||action==='deleteProfileById'){
+  const id=action==='deleteProfileById'?t.dataset.id:s.profileSelection;
+  const found=s.profiles.find(p=>p.id===id);
+  if(!found)return;
+  if(!confirm(`Gespeichertes Heldenprofil „${found.name}“ wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.`))return;
+  s.profiles=s.profiles.filter(p=>p.id!==id);
+  if(s.profileSelection===id)s.profileSelection='';
+  if(s.activeProfile===id)s.activeProfile='';
+  s.status='Gespeichertes Heldenprofil gelöscht. Die aktuellen Heldenwerte bleiben erhalten.';
+ }else if(action==='fight'){
+  if(!s.w.cat)return;s.loading=true;s.combat=null;render();
+  const a={...s.w},b={...chooseB()},hero={...s.h},enemy={...s.e};
+  setTimeout(()=>{try{s.combat=WENGINE.simulatePair(a,b,hero,enemy,6000,617284);s.status='Probekampf berechnet.';}catch(e){s.status='Berechnung fehlgeschlagen: '+e.message;}s.loading=false;render();},50);
+  return;
+ }else if(action==='export'){
+  const blob=new Blob([JSON.stringify({version:'11.0.0',weapons:s.saved,profiles:s.profiles,activeProfile:s.activeProfile,hero:s.h,enemy:s.e,draft:s.w},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='waffenschmiede-waffen-und-profile.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+ }else if(action==='import'){$('importFile').click();return;}
+ if(action!=='heroExpand'&&action!=='enemyExpand')s.combat=null;
+ persist();render();
+});
+$('importFile').addEventListener('change',async ev=>{
+ const file=ev.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>2_000_000)throw Error('Datei größer als 2 MB');
+  const data=JSON.parse(await file.text());
+  if(!data||typeof data!=='object'||Array.isArray(data))throw Error('Kein gültiges JSON-Objekt');
+  const weaponSource=Array.isArray(data.weapons)?data.weapons:Array.isArray(data.saved)?data.saved:null;
+  if(!weaponSource)throw Error('Keine Waffenliste in der Datei');
+  const stamp=Date.now();
+  const imported=weaponSource.slice(0,60).map(cleanImportWeapon).filter(Boolean)
+    .map((w,i)=>({...w,uid:'i'+stamp+'w'+i}));
+  const heroProfiles=Array.isArray(data.profiles)?data.profiles.slice(0,25):[];
+  const profileMap=new Map();
+  const importedProfiles=heroProfiles.filter(p=>p&&typeof p.name==='string'&&p.hero&&typeof p.hero==='object'&&!Array.isArray(p.hero))
+    .map((p,i)=>{const id='i'+stamp+'h'+i;profileMap.set(p.id,id);return {id,name:p.name.slice(0,60),hero:cleanHero(p.hero)};});
+  const draft=cleanImportWeapon(data.draft);
+  const hasHero=data.hero&&typeof data.hero==='object'&&!Array.isArray(data.hero);
+  const hasEnemy=data.enemy&&typeof data.enemy==='object'&&!Array.isArray(data.enemy);
+  const newHero=hasHero?cleanHero(data.hero):null;
+  const newEnemy=hasEnemy?cleanEnemy(data.enemy):null;
+  const description=`JSON-Import: ${imported.length} Waffen und ${importedProfiles.length} Heldenprofile ergänzen.`+
+    `${newHero?'\nAktiven Helden ersetzen.':''}${newEnemy?'\nAktiven Gegner ersetzen.':''}${draft?'\nAktuelle Wunschwaffe ersetzen.':''}`+
+    `\nVorhandene gespeicherte Einträge bleiben erhalten. Import jetzt durchführen?`;
+  if(!confirm(description))return;
+  s.saved=[...imported,...s.saved].slice(0,60);
+  s.profiles=[...importedProfiles,...s.profiles].slice(0,25);
+  if(newHero){s.h=newHero;s.activeProfile=profileMap.get(data.activeProfile)||'';s.profileSelection=s.activeProfile;}
+  if(newEnemy){s.e=newEnemy;s.preset='custom';}
+  if(draft){s.w=draft;s.tab='build';}
+  s.combat=null;s.optimizer=null;
+  s.status=`Import abgeschlossen: ${imported.length} Waffen, ${importedProfiles.length} Heldenprofile${newHero?', aktiver Held':''}${newEnemy?', Gegner':''}${draft?', Wunschwaffe':''}.`;
+  persist();render();
+ }catch(e){s.status='Import fehlgeschlagen: '+e.message;render();}
+ finally{ev.target.value='';}
+});
+render();
+
+</script><script src="./boot.js"></script></body></html>

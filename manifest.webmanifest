@@ -1,0 +1,32 @@
+{
+  "id": "./",
+  "name": "Die Zwergenschmiede – Waffenbau für Der Eine Ring",
+  "short_name": "Zwergenschmiede",
+  "description": "Waffenbau, Waffenvergleich und Probekampf für deine Rollenspielgruppe. Jeder Spieler speichert lokal.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#171715",
+  "theme_color": "#221d17",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
